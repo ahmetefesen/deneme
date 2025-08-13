@@ -1,0 +1,6 @@
+/Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles/RadarMapApplication.dir
+/Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles/RadarMapApplication_qmlimportscan.dir
+/Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles/edit_cache.dir
+/Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles/rebuild_cache.dir
+/Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles/RadarMapApplication_autogen_timestamp_deps.dir
+/Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles/RadarMapApplication_autogen.dir

@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_RadarMapApplication_FILE /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication)
+set(__QT_DEPLOY_TARGET_RadarMapApplication_TYPE EXECUTABLE)

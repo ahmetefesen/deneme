@@ -1,0 +1,9 @@
+-rootPath
+/Users/ahmetefesen/Desktop/onlinedeneme
+-cmake-output
+-output-file
+/Users/ahmetefesen/Desktop/onlinedeneme/build/.qt/qml_imports/RadarMapApplication_build.cmake
+-importPath
+/Users/ahmetefesen/Desktop/onlinedeneme/build
+-importPath
+/opt/homebrew/share/qt/qml
