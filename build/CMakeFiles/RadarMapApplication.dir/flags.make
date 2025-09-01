@@ -6,7 +6,7 @@ CXX_DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPE
 
 CXX_INCLUDES = -I/Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/include -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtNetwork.framework/Headers -isystem /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers -isystem /opt/homebrew/lib/QtWebEngineCore.framework/Headers -isystem /opt/homebrew/lib/QtQuick.framework/Headers -isystem /opt/homebrew/lib/QtQml.framework/Headers -isystem /opt/homebrew/include/QtQmlIntegration -isystem /opt/homebrew/lib/QtQmlMeta.framework/Headers -isystem /opt/homebrew/lib/QtQmlModels.framework/Headers -isystem /opt/homebrew/lib/QtQmlWorkerScript.framework/Headers -isystem /opt/homebrew/lib/QtOpenGL.framework/Headers -isystem /opt/homebrew/lib/QtWebChannel.framework/Headers -isystem /opt/homebrew/lib/QtPositioning.framework/Headers -isystem /opt/homebrew/lib/QtPrintSupport.framework/Headers
 
-CXX_FLAGSarm64 = -std=gnu++17 -arch arm64
+CXX_FLAGSarm64 = -O3 -DNDEBUG -std=gnu++17 -arch arm64
 
-CXX_FLAGS = -std=gnu++17 -arch arm64
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64
 

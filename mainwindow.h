@@ -34,12 +34,18 @@ private slots:
     void showSettings();
     void showDocumentation();
     void showAbout();
-    void updateTime();
     void startSimulation();
     void stopSimulation();
     void addWeatherCondition(const WeatherCondition &condition);
     void removeWeatherCondition(int index);
     void addDTEDFiles(const QStringList &fileNames);
+    void addTargetToSimulation(const Target &target);
+    void removeTargetFromSimulation(const QString &targetName);
+    void updateTargetPositionOnMap(const QString &targetName, double lat, double lon, double alt);
+    void updateInitialPositionOnMap(double lat, double lon, double alt);
+    void onTargetTrajectoryChanged(const QString &targetName, const QVector<QPair<double,double>> &latLon);
+    void onShowTargetsTraj(bool enabled);
+    void onRadarRouteChanged(const QVector<QPair<double,double>> &latLon);
 
 private:
     void createMenus();
@@ -69,8 +75,7 @@ private:
     QAction *documentationAction;
     QAction *aboutAction;
     
-    // Timer ve durum
-    QTimer *timeTimer;
+    // Durum
     QLabel *statusLabel;
     bool isRunning;
 };

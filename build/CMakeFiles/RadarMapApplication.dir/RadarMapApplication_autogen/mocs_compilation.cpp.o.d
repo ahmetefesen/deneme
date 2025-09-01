@@ -331,7 +331,6 @@ CMakeFiles/RadarMapApplication.dir/RadarMapApplication_autogen/mocs_compilation.
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h \
@@ -1163,26 +1162,13 @@ CMakeFiles/RadarMapApplication.dir/RadarMapApplication_autogen/mocs_compilation.
   /opt/homebrew/include/QtCore/qeventloop.h \
   /opt/homebrew/include/QtCore/qdeadlinetimer.h \
   /opt/homebrew/include/QtCore/qelapsedtimer.h \
-  /opt/homebrew/include/QtGui/qtextcursor.h \
-  /opt/homebrew/include/QtGui/qtextformat.h \
-  /opt/homebrew/include/QtGui/qpen.h \
-  /opt/homebrew/include/QtGui/qtextoption.h \
-  /opt/homebrew/include/QtCore/qtmochelpers.h \
-  /opt/homebrew/include/QtCore/qtmocconstants.h \
-  /opt/homebrew/include/QtCore/q20algorithm.h \
-  /opt/homebrew/include/QtCore/q23type_traits.h \
-  /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/EWIEGA46WW/moc_mainwindow.cpp \
-  /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/EWIEGA46WW/../../../mainwindow.h \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
-  /opt/homebrew/include/QtWidgets/qtabwidget.h \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/QMenuBar \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/qmenubar.h \
-  /opt/homebrew/include/QtWidgets/qmenu.h \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/QStatusBar \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/qstatusbar.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+  /opt/homebrew/include/QtWidgets/qabstractspinbox.h \
+  /opt/homebrew/include/QtGui/qvalidator.h \
+  /opt/homebrew/include/QtCore/qregularexpression.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QMap \
+  /opt/homebrew/lib/QtCore.framework/Headers/qmap.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/EWIEGA46WW/../../../mapwidget.h \
   /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers/QWebEngineView \
   /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers/qwebengineview.h \
@@ -1224,16 +1210,35 @@ CMakeFiles/RadarMapApplication.dir/RadarMapApplication_autogen/mocs_compilation.
   /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebenginesettings.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
+  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
+  /opt/homebrew/include/QtGui/qtextcursor.h \
+  /opt/homebrew/include/QtGui/qtextformat.h \
+  /opt/homebrew/include/QtGui/qpen.h \
+  /opt/homebrew/include/QtGui/qtextoption.h \
+  /opt/homebrew/include/QtCore/qtmochelpers.h \
+  /opt/homebrew/include/QtCore/qtmocconstants.h \
+  /opt/homebrew/include/QtCore/q20algorithm.h \
+  /opt/homebrew/include/QtCore/q23type_traits.h \
+  /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/EWIEGA46WW/moc_mainwindow.cpp \
+  /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/EWIEGA46WW/../../../mainwindow.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QMainWindow \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qmainwindow.h \
+  /opt/homebrew/include/QtWidgets/qtabwidget.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QMenuBar \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qmenubar.h \
+  /opt/homebrew/include/QtWidgets/qmenu.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStatusBar \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstatusbar.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/EWIEGA46WW/../../../sidebar.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTabWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
-  /opt/homebrew/include/QtWidgets/qabstractspinbox.h \
-  /opt/homebrew/include/QtGui/qvalidator.h \
-  /opt/homebrew/include/QtCore/qregularexpression.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QDoubleSpinBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
@@ -1261,7 +1266,7 @@ CMakeFiles/RadarMapApplication.dir/RadarMapApplication_autogen/mocs_compilation.
   /opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QProgressBar \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qprogressbar.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
-  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/EWIEGA46WW/moc_mapwidget.cpp \
   /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp

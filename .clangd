@@ -1,0 +1,15 @@
+CompileFlags:
+  Add:
+    -I/opt/homebrew/opt/gdal/include
+    -I/opt/homebrew/include
+    -I/opt/homebrew/opt/qt/include
+    -I/opt/homebrew/opt/qt/include/QtCore
+    -I/opt/homebrew/opt/qt/include/QtGui
+    -I/opt/homebrew/opt/qt/include/QtWidgets
+    -I/opt/homebrew/opt/qt/include/QtWebEngineCore
+    -I/opt/homebrew/opt/qt/include/QtWebEngineWidgets
+    -I/opt/homebrew/opt/qt/include/QtWebChannel
+    -F/opt/homebrew/opt/qt/lib
+    -I/opt/homebrew/opt/qt/lib/QtWebEngineCore.framework/Headers
+    -I/opt/homebrew/opt/qt/lib/QtWebEngineWidgets.framework/Headers
+    -I/Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/include

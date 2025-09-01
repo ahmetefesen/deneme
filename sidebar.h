@@ -19,6 +19,7 @@
 #include <QSlider>
 #include <QProgressBar>
 #include <QVector>
+#include <QStackedWidget>
 #include "mapwidget.h"
 
 class Sidebar : public QWidget
@@ -29,10 +30,40 @@ public:
     explicit Sidebar(QWidget *parent = nullptr);
     ~Sidebar();
 
+    // Public getters to feed ControlPanel at Start
+    double radarInitLat() const { return generalLatSpin ? generalLatSpin->value() : 0.0; }
+    double radarInitLon() const { return generalLonSpin ? generalLonSpin->value() : 0.0; }
+    double radarInitAlt() const { return generalAltSpin ? generalAltSpin->value() : 0.0; }
+    double radarInitVelN() const { return generalVelNSpin ? generalVelNSpin->value() : 0.0; }
+    double radarInitVelE() const { return generalVelESpin ? generalVelESpin->value() : 0.0; }
+    double radarInitVelD() const { return generalVelDSpin ? generalVelDSpin->value() : 0.0; }
+    QString radarName() const { return radarNameEdit ? radarNameEdit->text() : QString("Radar"); }
+    QVector<RadarRouteWaypoint> radarRouteWaypoints() const {
+        QVector<RadarRouteWaypoint> v;
+        v.reserve(radarWaypointsData.size());
+        for (const auto &rw : radarWaypointsData) {
+            RadarRouteWaypoint w{rw.lat, rw.lon, rw.alt, rw.velN, rw.velE, rw.velD};
+            v.push_back(w);
+        }
+        return v;
+    }
+    QMap<QString, QVector<RadarRouteWaypoint>> buildAllTargetRoutes() const;
+    QList<Target> getAllTargets() const;
+    auto getRadarAdvancedConfig() const { return currentRadarConfig; }
+    void newRadarProfile();
+
+    // Başlangıçta ilk N sekmenin başlık genişliğine göre tercih edilen genişlik
+    int preferredWidthForFirstTabs(int count) const;
+
 signals:
     void weatherConditionAdded(const WeatherCondition &condition);
     void weatherConditionRemoved(int index);
     void dtedFilesAdded(const QStringList &fileNames);
+    void targetAdded(const Target &target);
+    void targetRemoved(const QString &targetName);
+    void initialPositionChanged(double lat, double lon, double alt);
+    void targetTrajectoryChanged(const QString &targetName, const QVector<QPair<double,double>> &latLon);
+    void radarRouteChanged(const QVector<QPair<double,double>> &latLon);
 
 private slots:
     void onTabChanged(int index);
@@ -56,10 +87,22 @@ private slots:
     void onShowRadarConfigs();
     
     // Target tab slots
+    void onTargetSelectionChanged();  
     void onAddTarget();
     void onDeleteTarget();
     void onAppendWaypoint();
     void onDeleteWaypoint();
+    void onShowWaypointsPage();
+    void onBackToTargetsPage();
+    
+    // General tab slots
+    void onInitialPositionChanged();
+    // Radar route (General tab)
+    void onShowRadarRoutePage();
+    void onBackFromRadarRoutePage();
+    void onAppendRadarWaypoint();
+    void onDeleteRadarWaypoint();
+    
 
 private:
     void setupUI();
@@ -78,12 +121,11 @@ private:
     QWidget *terrainTab;
     QWidget *atmosphereTab;
     QWidget *radarTab;
-    QWidget *targetTab;
-    
-    // Radar tab için sub-tab'lar
+    // Radar tab alt sekmeleri
     QTabWidget *radarSubTabs;
     QWidget *radarPage1;
     QWidget *radarPage2;
+    QWidget *targetTab;
     
     // Atmosphere tab için değişkenler
     QListWidget *weatherConditionList;
@@ -95,6 +137,7 @@ private:
     QDoubleSpinBox *rainTemperatureSpinBox;
     QDoubleSpinBox *fogVisibilitySpinBox;
     QDoubleSpinBox *fogTemperatureSpinBox;
+    QCheckBox *calculateWeatherCheckSB;
     
     // Terrain tab için değişkenler
     QListWidget *dtedFilesList;
@@ -103,33 +146,33 @@ private:
 
     // Radar Page 1 (Monostatic) bileşenleri ve durum
     QGroupBox *radarConfigGroup;
-    QComboBox *radarModeCombo;
-    QDoubleSpinBox *centerFreqSpin;         // GHz
-    QDoubleSpinBox *txPeakPowerSpin;        // kW
-    QDoubleSpinBox *pulseWidthSpin;         // us
-    QDoubleSpinBox *bandwidthSpin;          // MHz
+    QComboBox *radarModeCombo;        
+    QDoubleSpinBox *centerFreqSpin;   
+    QDoubleSpinBox *txPeakPowerSpin;  
+    QDoubleSpinBox *pulseWidthSpin;   
+    QDoubleSpinBox *bandwidthSpin;    
 
     // PRF Section
     QGroupBox *prfGroup;
     QCheckBox *hopPrfsRandomlyCheck;
-    QComboBox *prfCountCombo;               // 1..7
-    QComboBox *prfIndexCombo;               // 1..N
-    QDoubleSpinBox *prfValueSpin;           // Hz
-    QVector<double> prfValues;              // size up to 7
+    QComboBox *prfCountCombo;         
+    QComboBox *prfIndexCombo;         
+    QDoubleSpinBox *prfValueSpin;     
+    QVector<double> prfValues;        
 
     // Waveform Section
     QGroupBox *waveformGroup;
-    QComboBox *waveformTypeCombo;           // Rect, LFM, Barker, Frank, P1..P4, ZC
-    QComboBox *barkerLengthCombo;           // visible only for Barker
-    QDoubleSpinBox *frankCodeSizeSpin;      // visible only for Frank
-    QDoubleSpinBox *pCodeSizeSpin;          // visible for P1..P4
-    QDoubleSpinBox *zcRootSpin;             // visible for Zadoff-Chu
+    QComboBox *waveformTypeCombo;     
+    QComboBox *barkerLengthCombo;     
+    QDoubleSpinBox *frankCodeSizeSpin;
+    QDoubleSpinBox *pCodeSizeSpin;    
+    QDoubleSpinBox *zcRootSpin;       
     QComboBox *windowingTypeCombo;
 
     // CFAR Section
     QGroupBox *cfarGroup;
     QCheckBox *useCFARCheck;
-    QComboBox *cfarTypeCombo;               // CA, SO, GO, OS
+    QComboBox *cfarTypeCombo;         
     QSpinBox *numTrainingCellsSpin;
     QSpinBox *numGuardCellsSpin;
     QSpinBox *osRankSpin;
@@ -139,18 +182,18 @@ private:
     // STC Section
     QGroupBox *stcGroup;
     QCheckBox *useSTCCheck;
-    QDoubleSpinBox *stcCutoffRangeSpin;     // m
+    QDoubleSpinBox *stcCutoffRangeSpin;     
     QDoubleSpinBox *stcFactorSpin;
 
     // Frequency Agile Section
     QGroupBox *freqAgileGroup;
     QCheckBox *useFreqHopCheck;
-    QDoubleSpinBox *lowerFreqMHzSpin;       // MHz
-    QDoubleSpinBox *upperFreqMHzSpin;       // MHz
+    QDoubleSpinBox *lowerFreqMHzSpin;       
+    QDoubleSpinBox *upperFreqMHzSpin;       
 
     // Radar Page 2 (Antenna Configuration)
     QGroupBox *antennaConfigGroup;
-    QComboBox *antennaPolarizationCombo;    // Horizontal, Vertical
+    QComboBox *antennaPolarizationCombo;    
     QCheckBox *fixedGainCheck;
     QCheckBox *beamPatternCheck;
     QDoubleSpinBox *fixedGainDbiSpin;
@@ -167,8 +210,20 @@ private:
     QPushButton *showRadarConfigsBtn;
 
     // Target tab için değişkenler
+    // Stacked pages
+    QStackedWidget *targetStack;
+    QWidget *targetMainPage;
+    QWidget *targetWaypointsPage;
+    QPushButton *showWaypointsBtn;
+    QPushButton *backToTargetsBtn;
+
+    // Target List
     QListWidget *targetList;
     QLineEdit *targetNameEdit;
+    QPushButton *addTargetBtn;
+    QPushButton *deleteTargetBtn;
+
+    // Initial Position
     QDoubleSpinBox *initLatSpin;
     QDoubleSpinBox *initLonSpin;
     QDoubleSpinBox *initAltSpin;
@@ -176,6 +231,8 @@ private:
     QDoubleSpinBox *initVelNSpin;
     QDoubleSpinBox *initVelESpin;
     QDoubleSpinBox *initVelDSpin;
+
+    // Trajectory + Waypoints (detay sayfasi)
     QDoubleSpinBox *trajLatSpin;
     QDoubleSpinBox *trajLonSpin;
     QDoubleSpinBox *trajAltSpin;
@@ -183,11 +240,11 @@ private:
     QDoubleSpinBox *trajVelESpin;
     QDoubleSpinBox *trajVelDSpin;
     QListWidget *waypointList;
-    QPushButton *addTargetBtn;
-    QPushButton *deleteTargetBtn;
     QPushButton *appendWaypointBtn;
     QPushButton *deleteWaypointBtn;
 
+    QLabel *selectedTargetLabel;
+    
     // Radar konfigürasyon saklama
     struct RadarConfig {
         QString radarMode;
@@ -230,6 +287,71 @@ private:
         double radarSnrThresholdDb = 0.0;
         double timeScanSec = 0.0;
     } currentRadarConfig;
+    
+    QMap<QString, Target> targets;
+    QString currentSelectedTarget;
+    
+    // General tab için değişkenler
+    QDoubleSpinBox *generalLatSpin;
+    QDoubleSpinBox *generalLonSpin;
+    QDoubleSpinBox *generalAltSpin;
+    QDoubleSpinBox *generalRcsSpin;
+    QDoubleSpinBox *generalVelNSpin;
+    QDoubleSpinBox *generalVelESpin;
+    QDoubleSpinBox *generalVelDSpin;
+    // General tab - alt sekmeler (Initial & Route)
+    QTabWidget *generalSubTabs;
+    QWidget *generalInitialTab;
+    QWidget *generalRouteTab;
+    QLabel *activeRadarLabel;
+    QLineEdit *radarNameEdit;
+    int radarProfileCounter{1};
+    QPushButton *openRadarRouteBtn;
+    QPushButton *radarBackBtn;
+    QListWidget *radarWaypointList;
+    QPushButton *radarAppendBtn;
+    QPushButton *radarDeleteBtn;
+    QDoubleSpinBox *radarWpLatSpin;
+    QDoubleSpinBox *radarWpLonSpin;
+    QDoubleSpinBox *radarWpAltSpin;
+    QDoubleSpinBox *radarWpVelNSpin;
+    QDoubleSpinBox *radarWpVelESpin;
+    QDoubleSpinBox *radarWpVelDSpin;
+    QStringList radarWaypoints;
+
+    struct RadarWaypoint {
+        double lat = 0.0;
+        double lon = 0.0;
+        double alt = 0.0;
+        double velN = 0.0;
+        double velE = 0.0;
+        double velD = 0.0;
+    };
+    QVector<RadarWaypoint> radarWaypointsData;
+
+    // Stored weather and terrain for saving
+    QList<WeatherCondition> weatherStore;
+    QStringList dtedStore;
+public:
+    QList<WeatherCondition> getWeatherConditions() const { return weatherStore; }
+    QStringList getDTEDFiles() const { return dtedStore; }
+    bool sidebarCalculateWeatherEnabled() const { return calculateWeatherCheckSB ? calculateWeatherCheckSB->isChecked() : false; }
+
+    struct RadarProfile {
+        QString name;
+        double initLat{0.0};
+        double initLon{0.0};
+        double initAlt{0.0};
+        double velN{0.0};
+        double velE{0.0};
+        double velD{0.0};
+        QVector<RadarWaypoint> route;
+        RadarConfig cfg;
+    };
+
+    QList<RadarProfile> getAllRadarProfiles() const;
+    void snapshotActiveRadarInto(RadarProfile &out) const;
 };
+
 
 #endif // SIDEBAR_H

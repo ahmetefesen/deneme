@@ -329,7 +329,6 @@ CMakeFiles/RadarMapApplication.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h \
@@ -1278,6 +1277,10 @@ CMakeFiles/RadarMapApplication.dir/main.cpp.o: \
   /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebenginesettings.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
+  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/sidebar.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTabWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h \
@@ -1319,6 +1322,8 @@ CMakeFiles/RadarMapApplication.dir/main.cpp.o: \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QProgressBar \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qprogressbar.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
-  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
-  /Users/ahmetefesen/Desktop/onlinedeneme/controlpanel.h
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+  /Users/ahmetefesen/Desktop/onlinedeneme/controlpanel.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QMap \
+  /opt/homebrew/lib/QtCore.framework/Headers/qmap.h

@@ -330,7 +330,6 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h \
@@ -1186,6 +1185,10 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: \
   /opt/homebrew/include/QtCore/qdeadlinetimer.h \
   /opt/homebrew/include/QtCore/qelapsedtimer.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
+  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QDebug \
   /opt/homebrew/lib/QtCore.framework/Headers/qdebug.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
@@ -1249,4 +1252,34 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /opt/homebrew/include/QtCore/qfileinfo.h \
-  /opt/homebrew/include/QtCore/qtimezone.h
+  /opt/homebrew/include/QtCore/qtimezone.h \
+  /Users/ahmetefesen/Desktop/onlinedeneme/geo.h \
+  /opt/homebrew/include/gdal_priv.h /opt/homebrew/include/gdal.h \
+  /opt/homebrew/include/gdal_fwd.h /opt/homebrew/include/gdal_version.h \
+  /opt/homebrew/include/cpl_port.h /opt/homebrew/include/cpl_config.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/strings.h \
+  /opt/homebrew/include/cpl_error.h /opt/homebrew/include/cpl_progress.h \
+  /opt/homebrew/include/cpl_virtualmem.h /opt/homebrew/include/cpl_vsi.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/unistd.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_posix_vdisable.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/select.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uuid_t.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/gethostuuid.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/stat.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h \
+  /opt/homebrew/include/cpl_minixml.h /opt/homebrew/include/ogr_api.h \
+  /opt/homebrew/include/ogr_core.h /opt/homebrew/include/gdal_frmts.h \
+  /opt/homebrew/include/gdalsubdatasetinfo.h \
+  /opt/homebrew/include/cpl_conv.h /opt/homebrew/include/cpl_string.h \
+  /opt/homebrew/include/cpl_multiproc.h \
+  /opt/homebrew/include/cpl_atomic_ops.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/complex \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
+  /opt/homebrew/include/ogr_feature.h \
+  /opt/homebrew/include/ogr_featurestyle.h \
+  /opt/homebrew/include/ogr_geometry.h /opt/homebrew/include/cpl_json.h \
+  /opt/homebrew/include/ogr_geomcoordinateprecision.h \
+  /opt/homebrew/include/ogr_spatialref.h \
+  /opt/homebrew/include/ogr_srs_api.h

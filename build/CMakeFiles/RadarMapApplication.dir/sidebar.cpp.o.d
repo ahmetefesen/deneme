@@ -330,7 +330,6 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h \
@@ -1195,6 +1194,8 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qprogressbar.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QVector \
   /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/mapwidget.h \
   /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers/QWebEngineView \
   /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers/qwebengineview.h \
@@ -1244,6 +1245,8 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: \
   /opt/homebrew/include/QtCore/qdeadlinetimer.h \
   /opt/homebrew/include/QtCore/qelapsedtimer.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
   /opt/homebrew/include/QtWidgets/QLayout \
@@ -1307,4 +1310,10 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: \
   /opt/homebrew/lib/QtCore.framework/Headers/qfileinfo.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
-  /opt/homebrew/include/QtWidgets/qdialogbuttonbox.h
+  /opt/homebrew/include/QtWidgets/qdialogbuttonbox.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QRegularExpression \
+  /opt/homebrew/lib/QtCore.framework/Headers/qregularexpression.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QHeaderView \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qheaderview.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QTabBar \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qtabbar.h

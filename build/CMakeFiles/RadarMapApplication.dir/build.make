@@ -73,7 +73,7 @@ RadarMapApplication_autogen/timestamp: /opt/homebrew/share/qt/libexec/moc
 RadarMapApplication_autogen/timestamp: /opt/homebrew/share/qt/libexec/uic
 RadarMapApplication_autogen/timestamp: CMakeFiles/RadarMapApplication.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target RadarMapApplication"
-	/opt/homebrew/bin/cmake -E cmake_autogen /Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles/RadarMapApplication_autogen.dir/AutogenInfo.json ""
+	/opt/homebrew/bin/cmake -E cmake_autogen /Users/ahmetefesen/Desktop/onlinedeneme/build/CMakeFiles/RadarMapApplication_autogen.dir/AutogenInfo.json Release
 	/opt/homebrew/bin/cmake -E touch /Users/ahmetefesen/Desktop/onlinedeneme/build/RadarMapApplication_autogen/timestamp
 
 CMakeFiles/RadarMapApplication.dir/codegen:
@@ -183,6 +183,7 @@ RadarMapApplication: CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o
 RadarMapApplication: CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o
 RadarMapApplication: CMakeFiles/RadarMapApplication.dir/build.make
 RadarMapApplication: /opt/homebrew/lib/QtWebEngineWidgets.framework/Versions/A/QtWebEngineWidgets
+RadarMapApplication: /opt/homebrew/Cellar/gdal/3.11.3_3/lib/libgdal.dylib
 RadarMapApplication: /opt/homebrew/lib/QtWebEngineCore.framework/Versions/A/QtWebEngineCore
 RadarMapApplication: /opt/homebrew/lib/QtWebChannel.framework/Versions/A/QtWebChannel
 RadarMapApplication: /opt/homebrew/lib/QtPositioning.framework/Versions/A/QtPositioning

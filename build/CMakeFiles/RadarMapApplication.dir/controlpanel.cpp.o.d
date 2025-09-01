@@ -330,7 +330,6 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h \
@@ -1162,7 +1161,64 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: \
   /opt/homebrew/include/QtCore/qeventloop.h \
   /opt/homebrew/include/QtCore/qdeadlinetimer.h \
   /opt/homebrew/include/QtCore/qelapsedtimer.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+  /opt/homebrew/include/QtWidgets/qabstractspinbox.h \
+  /opt/homebrew/include/QtGui/qvalidator.h \
+  /opt/homebrew/include/QtCore/qregularexpression.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QMap \
+  /opt/homebrew/lib/QtCore.framework/Headers/qmap.h \
+  /Users/ahmetefesen/Desktop/onlinedeneme/mapwidget.h \
+  /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers/QWebEngineView \
+  /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers/qwebengineview.h \
+  /opt/homebrew/include/QtGui/QPageLayout \
+  /opt/homebrew/include/QtGui/qpagelayout.h \
+  /opt/homebrew/include/QtGui/qpagesize.h \
+  /opt/homebrew/include/QtGui/qpageranges.h \
+  /opt/homebrew/include/QtWebEngineWidgets/qtwebenginewidgetsglobal.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebenginepage.h \
+  /opt/homebrew/include/QtWebEngineCore/qtwebenginecoreglobal.h \
+  /opt/homebrew/include/QtWebEngineCore/qtwebenginecore-config.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebengineclientcertificateselection.h \
+  /opt/homebrew/include/QtNetwork/qtnetwork-config.h \
+  /opt/homebrew/include/QtNetwork/qsslcertificate.h \
+  /opt/homebrew/include/QtNetwork/qtnetworkglobal.h \
+  /opt/homebrew/include/QtNetwork/qtnetworkexports.h \
+  /opt/homebrew/include/QtCore/qcryptographichash.h \
+  /opt/homebrew/include/QtCore/qdatetime.h \
+  /opt/homebrew/include/QtNetwork/qssl.h \
+  /opt/homebrew/include/QtCore/QFlags \
+  /opt/homebrew/include/QtWebEngineCore/qwebenginedownloadrequest.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebenginequotarequest.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebengineframe.h \
+  /opt/homebrew/include/QtQml/qqmlregistration.h \
+  /opt/homebrew/include/QtQmlIntegration/qqmlintegration.h \
+  /opt/homebrew/include/QtQml/qjsvalue.h \
+  /opt/homebrew/include/QtQml/qtqmlglobal.h \
+  /opt/homebrew/include/QtQml/qtqml-config.h \
+  /opt/homebrew/include/QtQml/qtqmlexports.h \
+  /opt/homebrew/include/QtCore/QList /opt/homebrew/include/QtCore/QSizeF \
+  /opt/homebrew/include/QtCore/QString /opt/homebrew/include/QtCore/QUrl \
+  /opt/homebrew/include/QtCore/QWeakPointer \
+  /opt/homebrew/include/QtWebEngineCore/qwebenginepermission.h \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEnginePage \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebenginepage.h \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEngineProfile \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebengineprofile.h \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEngineSettings \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebenginesettings.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
+  /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
+  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /opt/homebrew/lib/QtGui.framework/Headers/QFont \
   /opt/homebrew/lib/QtGui.framework/Headers/qfont.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QDebug \
-  /opt/homebrew/lib/QtCore.framework/Headers/qdebug.h
+  /opt/homebrew/lib/QtCore.framework/Headers/qdebug.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
+  /opt/homebrew/include/QtWidgets/qdialog.h \
+  /opt/homebrew/include/QtWidgets/qdialogbuttonbox.h \
+  /Users/ahmetefesen/Desktop/onlinedeneme/geo.h

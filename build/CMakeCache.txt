@@ -22,7 +22,7 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=
+CMAKE_BUILD_TYPE:STRING=Release
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -264,11 +264,17 @@ CUPS_INCLUDE_DIR:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOS
 //Path to a library.
 CUPS_LIBRARIES:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libcups.tbd
 
+//Path to the gdal-config tool
+GDAL_CONFIG:FILEPATH=/opt/homebrew/bin/gdal-config
+
+//Path to the GDAL include directory
+GDAL_INCLUDE_DIR:PATH=/opt/homebrew/include
+
+//Path to the GDAL library
+GDAL_LIBRARY:FILEPATH=/opt/homebrew/Cellar/gdal/3.11.3_3/lib/libgdal.dylib
+
 //Path to a program.
 MACDEPLOYQT_EXECUTABLE:FILEPATH=/opt/homebrew/bin/macdeployqt
-
-//The directory containing a CMake configuration file for Marble.
-Marble_DIR:PATH=Marble_DIR-NOTFOUND
 
 //Include for the OpenGL GLU library
 OPENGL_GLU_INCLUDE_DIR:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
@@ -637,6 +643,8 @@ CUPS_INCLUDE_DIR-ADVANCED:INTERNAL=1
 CUPS_LIBRARIES-ADVANCED:INTERNAL=1
 //Details about finding Cups
 FIND_PACKAGE_MESSAGE_DETAILS_Cups:INTERNAL=[/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libcups.tbd][/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include][v2.3.4()]
+//Details about finding GDAL
+FIND_PACKAGE_MESSAGE_DETAILS_GDAL:INTERNAL=[/opt/homebrew/Cellar/gdal/3.11.3_3/lib/libgdal.dylib][/opt/homebrew/include][v3.11.3()]
 //Details about finding OpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework][/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework][ ][v()]
 //Details about finding Threads
@@ -645,6 +653,12 @@ FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 FIND_PACKAGE_MESSAGE_DETAILS_WrapAtomic:INTERNAL=[1][v()]
 //Details about finding WrapOpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_WrapOpenGL:INTERNAL=[ON][v()]
+//ADVANCED property for variable: GDAL_CONFIG
+GDAL_CONFIG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GDAL_INCLUDE_DIR
+GDAL_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GDAL_LIBRARY
+GDAL_LIBRARY-ADVANCED:INTERNAL=1
 //Test HAVE_STDATOMIC
 HAVE_STDATOMIC:INTERNAL=1
 //ADVANCED property for variable: OPENGL_GLU_INCLUDE_DIR

@@ -13,6 +13,12 @@
 #include <QLabel>
 #include <QSplitter>
 #include <QGroupBox>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QFile>
+#include <QFileInfo>
+#include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,11 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
     setupLayout();
     createConnections();
     
-    // Timer'ı başlat
-    timeTimer = new QTimer(this);
-    connect(timeTimer, &QTimer::timeout, this, &MainWindow::updateTime);
-    timeTimer->start(1000);
-    updateTime();
+    // Başlangıç initial position'ını göster
+    QTimer::singleShot(1000, this, [this]() {
+        updateInitialPositionOnMap(47.93943, 3.68785, 1000.0);
+    });
+    
+
 }
 
 MainWindow::~MainWindow()
@@ -98,6 +105,8 @@ void MainWindow::setupLayout()
     
     // Splitter
     mainSplitter = new QSplitter(Qt::Horizontal);
+    mainSplitter->setOpaqueResize(true);
+    mainSplitter->setChildrenCollapsible(true);
     mainLayout->addWidget(mainSplitter);
 
     // Sol: Sidebar
@@ -119,8 +128,13 @@ void MainWindow::setupLayout()
 
     mainSplitter->addWidget(mapContainer);
 
-    // Boyut ve esneme
-    mainSplitter->setSizes({300, 1100});
+    // Collapsible ayarlarını widgetlar eklendikten sonra yap
+    mainSplitter->setCollapsible(0, true); // Sidebar tamamen kapanabilsin
+    mainSplitter->setCollapsible(1, true);
+
+    // Boyut ve esneme: Başlangıçta ilk iki sekme başlığını sığdıracak genişlik
+    int sideW = sidebar ? sidebar->preferredWidthForFirstTabs(2) : 300;
+    mainSplitter->setSizes({ sideW, qMax(800, width() - sideW) });
     mainSplitter->setStretchFactor(0, 0);
     mainSplitter->setStretchFactor(1, 1);
 }
@@ -149,11 +163,41 @@ void MainWindow::createConnections()
     // DTED files bağlantıları
     connect(controlPanel, &ControlPanel::showDTEDAreasChanged, mapWidget, &MapWidget::setShowDTEDAreas);
     connect(sidebar, &Sidebar::dtedFilesAdded, this, &MainWindow::addDTEDFiles);
+    
+    // Target bağlantıları
+    connect(sidebar, &Sidebar::targetAdded, this, &MainWindow::addTargetToSimulation);
+    connect(sidebar, &Sidebar::targetRemoved, this, &MainWindow::removeTargetFromSimulation);
+    connect(sidebar, &Sidebar::targetTrajectoryChanged, this, [this](const QString &name, const QVector<QPair<double,double>> &latLon){
+        if (controlPanel) {
+            // Checkbox açıksa çiz
+            // showTargetsTrajChanged sinyali MapWidget temizlemeyi de yönetiyor
+            // Burada sadece istenirse çizgiyi güncelliyoruz
+            mapWidget->drawTrajectory(name, latLon);
+        }
+    });
+    connect(controlPanel, &ControlPanel::showTargetsTrajChanged, this, &MainWindow::onShowTargetsTraj);
+    
+    // Target pozisyon güncellemelerini MapWidget'a ilet
+    connect(controlPanel, &ControlPanel::targetPositionUpdated, this, &MainWindow::updateTargetPositionOnMap);
+
+    // Radar pozisyon güncellemesini initial marker ile gösterelim
+    connect(controlPanel, &ControlPanel::radarPositionUpdated, this, [this](double lat, double lon, double alt){
+        mapWidget->updateInitialPosition(lat, lon, alt);
+        // Çoklu radar için isimlendirilmiş marker da güncellenebilir (tek profil için başlangıçta ekleme yapılabilir)
+        if (sidebar) mapWidget->updateRadar(sidebar->radarName(), lat, lon, alt);
+    });
+    connect(controlPanel, &ControlPanel::namedRadarPositionUpdated, this, [this](const QString &name, double lat, double lon, double alt){
+        mapWidget->updateRadar(name, lat, lon, alt);
+    });
+
+    // Initial position değişikliklerini MapWidget'a ilet
+    connect(sidebar, &Sidebar::initialPositionChanged, this, &MainWindow::updateInitialPositionOnMap);
 }
 
 void MainWindow::newFile()
 {
-    QMessageBox::information(this, "New File", "New file functionality will be implemented.");
+    if (sidebar) sidebar->newRadarProfile();
+    QMessageBox::information(this, "New Radar", "New radar profile created.");
 }
 
 void MainWindow::openFile()
@@ -171,7 +215,114 @@ void MainWindow::closeFile()
 
 void MainWindow::saveFile()
 {
-    QMessageBox::information(this, "Save File", "Save file functionality will be implemented.");
+    if (!saveAction || !saveAction->isEnabled()) {
+        QMessageBox::warning(this, "Not Allowed", "Simulation has not been stopped yet. Save is disabled until after first stop.");
+        return;
+    }
+
+    const QString ts = QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss");
+    QString defaultName = QString("scenario_%1.json").arg(ts);
+    QString fileName = QFileDialog::getSaveFileName(this, "Save Scenario", defaultName, "JSON Files (*.json)");
+    if (fileName.isEmpty()) return;
+
+    QJsonObject root;
+    root["hz"] = controlPanel ? controlPanel->hz() : 10;
+    root["showTargetsTraj"] = controlPanel ? controlPanel->showTargetsTrajEnabled() : false;
+    root["calculateWeather"] = sidebar ? sidebar->sidebarCalculateWeatherEnabled() : false;
+
+    // Radar initial
+    QJsonObject radarInit;
+    radarInit["name"] = sidebar ? sidebar->radarName() : "Radar";
+    radarInit["lat"] = sidebar ? sidebar->radarInitLat() : 0.0;
+    radarInit["lon"] = sidebar ? sidebar->radarInitLon() : 0.0;
+    radarInit["alt"] = sidebar ? sidebar->radarInitAlt() : 0.0;
+    radarInit["velN"] = sidebar ? sidebar->radarInitVelN() : 0.0;
+    radarInit["velE"] = sidebar ? sidebar->radarInitVelE() : 0.0;
+    radarInit["velD"] = sidebar ? sidebar->radarInitVelD() : 0.0;
+    root["radarInitial"] = radarInit;
+
+    // Radar route
+    QJsonArray radarRouteArr;
+    if (sidebar) {
+        auto r = sidebar->radarRouteWaypoints();
+        for (const auto &wp : r) {
+            QJsonObject w;
+            w["lat"] = wp.lat; w["lon"] = wp.lon; w["alt"] = wp.alt;
+            w["velN"] = wp.velN; w["velE"] = wp.velE; w["velD"] = wp.velD;
+            radarRouteArr.append(w);
+        }
+    }
+    root["radarRoute"] = radarRouteArr;
+
+    // Targets full
+    QJsonArray targetsArr;
+    if (sidebar) {
+        auto tgts = sidebar->getAllTargets();
+        auto routes = sidebar->buildAllTargetRoutes();
+        for (const auto &t : tgts) {
+            QJsonObject to;
+            to["name"] = t.name;
+            QJsonObject init;
+            init["lat"] = t.initLatitude; init["lon"] = t.initLongitude; init["alt"] = t.initAltitude;
+            init["rcs"] = t.initRCS; init["velN"] = t.initVelocityN; init["velE"] = t.initVelocityE; init["velD"] = t.initVelocityD;
+            to["initial"] = init;
+            QJsonObject traj;
+            traj["lat"] = t.trajLatitude; traj["lon"] = t.trajLongitude; traj["alt"] = t.trajAltitude;
+            traj["velN"] = t.trajVelocityN; traj["velE"] = t.trajVelocityE; traj["velD"] = t.trajVelocityD;
+            to["trajectory"] = traj;
+            QJsonArray wps;
+            if (routes.contains(t.name)) {
+                for (const auto &wp : routes[t.name]) {
+                    QJsonObject w; w["lat"] = wp.lat; w["lon"] = wp.lon; w["alt"] = wp.alt; w["velN"] = wp.velN; w["velE"] = wp.velE; w["velD"] = wp.velD; wps.append(w);
+                }
+            }
+            to["waypoints"] = wps;
+            targetsArr.append(to);
+        }
+    }
+    root["targets"] = targetsArr;
+
+    // Weather
+    QJsonArray weatherArr;
+    if (sidebar) {
+        for (const auto &w : sidebar->getWeatherConditions()) {
+            QJsonObject wo;
+            wo["lat"] = w.latitude; wo["lon"] = w.longitude; wo["radiusKm"] = w.radius; wo["type"] = w.type;
+            wo["rainRate"] = w.rainRate; wo["rainTemp"] = w.rainTemperature;
+            wo["fogVisibility"] = w.fogVisibility; wo["fogTemp"] = w.fogTemperature;
+            weatherArr.append(wo);
+        }
+    }
+    root["weather"] = weatherArr;
+
+    // Terrain (DTED paths)
+    QJsonArray terrainArr;
+    if (sidebar) {
+        for (const auto &p : sidebar->getDTEDFiles()) terrainArr.append(p);
+    }
+    root["terrain"] = terrainArr;
+
+    // Multi-radar profiles
+    QJsonArray radarsArr;
+    if (sidebar) {
+        auto profiles = sidebar->getAllRadarProfiles();
+        for (const auto &rp : profiles) {
+            QJsonObject ro; ro["name"] = rp.name; ro["lat"] = rp.initLat; ro["lon"] = rp.initLon; ro["alt"] = rp.initAlt; ro["velN"] = rp.velN; ro["velE"] = rp.velE; ro["velD"] = rp.velD;
+            QJsonArray rr; for (const auto &wp : rp.route) { QJsonObject w; w["lat"] = wp.lat; w["lon"] = wp.lon; w["alt"] = wp.alt; w["velN"] = wp.velN; w["velE"] = wp.velE; w["velD"] = wp.velD; rr.append(w);} ro["route"] = rr;
+            radarsArr.append(ro);
+        }
+    }
+    root["radars"] = radarsArr;
+
+    QJsonDocument doc(root);
+    QFile f(fileName);
+    if (f.open(QIODevice::WriteOnly)) {
+        f.write(doc.toJson(QJsonDocument::Indented));
+        f.close();
+        QMessageBox::information(this, "Saved", QString("Scenario saved to: %1").arg(fileName));
+    } else {
+        QMessageBox::warning(this, "Error", "Failed to save file.");
+    }
 }
 
 void MainWindow::saveAsFile()
@@ -205,17 +356,58 @@ void MainWindow::showAbout()
         "- Resizable layout");
 }
 
-void MainWindow::updateTime()
-{
-    QTime currentTime = QTime::currentTime();
-    controlPanel->updateTime(currentTime.toString("hh:mm:ss"));
-}
+
 
 void MainWindow::startSimulation()
 {
     isRunning = true;
     statusLabel->setText("Running");
     controlPanel->setStatus("Running");
+    if (controlPanel) controlPanel->setRunningUI(true);
+
+    if (sidebar && controlPanel) {
+        controlPanel->setRadarInitialKinematics(
+            sidebar->radarInitLat(),
+            sidebar->radarInitLon(),
+            sidebar->radarInitAlt(),
+            sidebar->radarInitVelN(),
+            sidebar->radarInitVelE(),
+            sidebar->radarInitVelD()
+        );
+        controlPanel->setRadarRoute(sidebar->radarRouteWaypoints());
+
+        mapWidget->addRadar(sidebar->radarName(), sidebar->radarInitLat(), sidebar->radarInitLon(), sidebar->radarInitAlt());
+
+        auto profiles = sidebar->getAllRadarProfiles();
+        for (const auto &rp : profiles) {
+            controlPanel->addRadarProfile(rp.name, rp.initLat, rp.initLon, rp.initAlt, rp.velN, rp.velE, rp.velD,
+                                          [&](){ QVector<RadarRouteWaypoint> v; for(const auto &x: rp.route){ RadarRouteWaypoint w{ x.lat,x.lon,x.alt,x.velN,x.velE,x.velD}; v.push_back(w);} return v;}());
+            mapWidget->addRadar(rp.name, rp.initLat, rp.initLon, rp.initAlt);
+        }
+
+        auto targets = sidebar->getAllTargets();
+        for (const auto &t : targets) {
+            addTargetToSimulation(t);
+        }
+        auto routes = sidebar->buildAllTargetRoutes();
+        for (auto it = routes.begin(); it != routes.end(); ++it) {
+            controlPanel->setTargetRoute(it.key(), it.value());
+            if (controlPanel->showTargetsTrajEnabled()) {
+                QVector<QPair<double,double>> latLon;
+                for (const auto &tar : targets) {
+                    if (tar.name == it.key()) {
+                        latLon.push_back({ tar.initLatitude, tar.initLongitude });
+                        for (const auto &wp : it.value()) latLon.push_back({ wp.lat, wp.lon });
+                        break;
+                    }
+                }
+                mapWidget->drawTrajectory(it.key(), latLon);
+            }
+        }
+    }
+
+    if (mainSplitter && sidebar) sidebar->hide();
+    if (saveAction) saveAction->setEnabled(false);
 }
 
 void MainWindow::stopSimulation()
@@ -223,6 +415,10 @@ void MainWindow::stopSimulation()
     isRunning = false;
     controlPanel->setStatus("Paused");
     statusLabel->setText("Simulation stopped");
+    if (controlPanel) controlPanel->setRunningUI(false);
+
+    if (mainSplitter && sidebar) sidebar->show();
+    if (saveAction) saveAction->setEnabled(true);
 }
 
 void MainWindow::addWeatherCondition(const WeatherCondition &condition)
@@ -251,4 +447,63 @@ void MainWindow::addDTEDFiles(const QStringList &fileNames)
         mapWidget->addDTEDFile(dtedFile);
     }
     mapWidget->updateLegend();
+}
+
+void MainWindow::addTargetToSimulation(const Target &target)
+{
+    // ControlPanel'e target'ı ekle
+    controlPanel->addTarget(target);
+    
+    // MapWidget'a da target'ı ekle
+    mapWidget->addTarget(target);
+}
+
+void MainWindow::removeTargetFromSimulation(const QString &targetName)
+{
+    // ControlPanel'den target'ı kaldır
+    controlPanel->removeTarget(targetName);
+    
+    // MapWidget'dan da target'ı kaldır
+    mapWidget->removeTarget(targetName);
+}
+
+void MainWindow::updateTargetPositionOnMap(const QString &targetName, double lat, double lon, double alt)
+{
+    // MapWidget'da target pozisyonunu güncelle
+    mapWidget->updateTargetPosition(targetName, lat, lon, alt);
+}
+
+void MainWindow::updateInitialPositionOnMap(double lat, double lon, double alt)
+{
+    // İlk kez ekleniyor mu kontrol et
+    static bool initialPositionExists = false;
+    
+    if (!initialPositionExists) {
+        // İlk kez ekle
+        mapWidget->addInitialPosition(lat, lon, alt, "Initial Position");
+        initialPositionExists = true;
+    } else {
+        // Mevcut pozisyonu güncelle
+        mapWidget->updateInitialPosition(lat, lon, alt);
+    }
+}
+
+void MainWindow::onTargetTrajectoryChanged(const QString &targetName, const QVector<QPair<double,double>> &latLon)
+{
+    Q_UNUSED(targetName);
+    // ControlPanel tarafındaki toggle durumunu bilmiyoruz; basitçe çizmeyi deneyelim
+    mapWidget->drawTrajectory(targetName, latLon);
+}
+
+void MainWindow::onShowTargetsTraj(bool enabled)
+{
+    if (!enabled) {
+        mapWidget->clearTrajectories();
+    }
+}
+
+void MainWindow::onRadarRouteChanged(const QVector<QPair<double,double>> &latLon)
+{
+    // Radar rotasını özel bir id ile çizelim
+    mapWidget->drawTrajectory("radar-route", latLon);
 }

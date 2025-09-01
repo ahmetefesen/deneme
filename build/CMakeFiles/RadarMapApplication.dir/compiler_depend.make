@@ -949,6 +949,8 @@ RadarMapApplication_autogen/timestamp: /Applications/Xcode.app/Contents/Develope
   /opt/homebrew/Cellar/qt/6.9.1/include/QtQmlIntegration/qqmlintegration.h \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QFlags \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QList \
+  /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QMap \
+  /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QPair \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QSizeF \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QString \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QTime \
@@ -1174,6 +1176,7 @@ RadarMapApplication_autogen/timestamp: /Applications/Xcode.app/Contents/Develope
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QSlider \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QSpinBox \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QSplitter \
+  /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QStackedWidget \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QStatusBar \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QTabWidget \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QTextEdit \
@@ -1208,6 +1211,7 @@ RadarMapApplication_autogen/timestamp: /Applications/Xcode.app/Contents/Develope
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qslider.h \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qspinbox.h \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qsplitter.h \
+  /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qstackedwidget.h \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qstatusbar.h \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qstyle.h \
   /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qstyleoption.h \
@@ -2255,24 +2259,81 @@ RadarMapApplication_autogen/timestamp: /Applications/Xcode.app/Contents/Develope
   /opt/homebrew/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets-release.cmake \
   /opt/homebrew/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
   /opt/homebrew/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeCXXCompiler.cmake.in \
+  /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp \
   /opt/homebrew/share/cmake/Modules/CMakeCXXInformation.cmake \
   /opt/homebrew/share/cmake/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
   /opt/homebrew/share/cmake/Modules/CMakeCommonLanguageInclude.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeCompilerIdDetection.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeDetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake \
   /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake \
   /opt/homebrew/share/cmake/Modules/CMakeGenericSystem.cmake \
   /opt/homebrew/share/cmake/Modules/CMakeInitializeConfigs.cmake \
   /opt/homebrew/share/cmake/Modules/CMakeLanguageInformation.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeSystem.cmake.in \
   /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInformation.cmake \
   /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeTestCompilerCommon.cmake \
+  /opt/homebrew/share/cmake/Modules/CMakeUnixFindMake.cmake \
   /opt/homebrew/share/cmake/Modules/CheckCXXCompilerFlag.cmake \
   /opt/homebrew/share/cmake/Modules/CheckCXXSourceCompiles.cmake \
   /opt/homebrew/share/cmake/Modules/CheckIncludeFileCXX.cmake \
   /opt/homebrew/share/cmake/Modules/CheckLibraryExists.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
   /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-CXX.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake \
   /opt/homebrew/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
   /opt/homebrew/share/cmake/Modules/Compiler/Clang.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
   /opt/homebrew/share/cmake/Modules/Compiler/GNU.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
+  /opt/homebrew/share/cmake/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
   /opt/homebrew/share/cmake/Modules/FindCups.cmake \
+  /opt/homebrew/share/cmake/Modules/FindGDAL.cmake \
   /opt/homebrew/share/cmake/Modules/FindOpenGL.cmake \
   /opt/homebrew/share/cmake/Modules/FindPackageHandleStandardArgs.cmake \
   /opt/homebrew/share/cmake/Modules/FindPackageMessage.cmake \
@@ -2281,15 +2342,19 @@ RadarMapApplication_autogen/timestamp: /Applications/Xcode.app/Contents/Develope
   /opt/homebrew/share/cmake/Modules/GNUInstallDirs.cmake \
   /opt/homebrew/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake \
   /opt/homebrew/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake \
+  /opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake \
+  /opt/homebrew/share/cmake/Modules/Internal/CMakeInspectCXXLinker.cmake \
   /opt/homebrew/share/cmake/Modules/Internal/CheckCompilerFlag.cmake \
   /opt/homebrew/share/cmake/Modules/Internal/CheckFlagCommonConfig.cmake \
   /opt/homebrew/share/cmake/Modules/Internal/CheckSourceCompiles.cmake \
+  /opt/homebrew/share/cmake/Modules/Internal/FeatureTesting.cmake \
   /opt/homebrew/share/cmake/Modules/Linker/AppleClang-CXX.cmake \
   /opt/homebrew/share/cmake/Modules/Linker/AppleClang.cmake \
   /opt/homebrew/share/cmake/Modules/MacroAddFileDependencies.cmake \
   /opt/homebrew/share/cmake/Modules/Platform/Apple-AppleClang-CXX.cmake \
   /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang-CXX.cmake \
   /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang.cmake \
+  /opt/homebrew/share/cmake/Modules/Platform/Darwin-Determine-CXX.cmake \
   /opt/homebrew/share/cmake/Modules/Platform/Darwin-Initialize.cmake \
   /opt/homebrew/share/cmake/Modules/Platform/Darwin.cmake \
   /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang-CXX.cmake \
@@ -2307,7 +2372,6 @@ CMakeFiles/RadarMapApplication.dir/RadarMapApplication_autogen/mocs_compilation.
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__xlocale.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_abort.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_locale.h \
@@ -3509,11 +3573,15 @@ CMakeFiles/RadarMapApplication.dir/RadarMapApplication_autogen/mocs_compilation.
   /opt/homebrew/include/QtWidgets/qtwidgetsglobal.h \
   /opt/homebrew/include/QtWidgets/qwidget.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QMap \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
   /opt/homebrew/lib/QtCore.framework/Headers/QTime \
   /opt/homebrew/lib/QtCore.framework/Headers/QTimer \
   /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
   /opt/homebrew/lib/QtCore.framework/Headers/QVector \
   /opt/homebrew/lib/QtCore.framework/Headers/qdatetime.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qmap.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qtimer.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
   /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEnginePage \
@@ -3539,6 +3607,7 @@ CMakeFiles/RadarMapApplication.dir/RadarMapApplication_autogen/mocs_compilation.
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QStatusBar \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTabWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
@@ -3559,6 +3628,7 @@ CMakeFiles/RadarMapApplication.dir/RadarMapApplication_autogen/mocs_compilation.
   /opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qstatusbar.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
@@ -3576,7 +3646,6 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: /Users/ahmetefesen/Deskto
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__xlocale.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_abort.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_locale.h \
@@ -4539,6 +4608,14 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: /Users/ahmetefesen/Deskto
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdint.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/controlpanel.h \
+  /Users/ahmetefesen/Desktop/onlinedeneme/geo.h \
+  /Users/ahmetefesen/Desktop/onlinedeneme/mapwidget.h \
+  /opt/homebrew/include/QtCore/QFlags \
+  /opt/homebrew/include/QtCore/QList \
+  /opt/homebrew/include/QtCore/QSizeF \
+  /opt/homebrew/include/QtCore/QString \
+  /opt/homebrew/include/QtCore/QUrl \
+  /opt/homebrew/include/QtCore/QWeakPointer \
   /opt/homebrew/include/QtCore/q17memory.h \
   /opt/homebrew/include/QtCore/q20functional.h \
   /opt/homebrew/include/QtCore/q20iterator.h \
@@ -4574,8 +4651,10 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: /Users/ahmetefesen/Deskto
   /opt/homebrew/include/QtCore/qcontainerinfo.h \
   /opt/homebrew/include/QtCore/qcontainertools_impl.h \
   /opt/homebrew/include/QtCore/qcontiguouscache.h \
+  /opt/homebrew/include/QtCore/qcryptographichash.h \
   /opt/homebrew/include/QtCore/qdarwinhelpers.h \
   /opt/homebrew/include/QtCore/qdatastream.h \
+  /opt/homebrew/include/QtCore/qdatetime.h \
   /opt/homebrew/include/QtCore/qdeadlinetimer.h \
   /opt/homebrew/include/QtCore/qdebug.h \
   /opt/homebrew/include/QtCore/qelapsedtimer.h \
@@ -4620,6 +4699,7 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: /Users/ahmetefesen/Deskto
   /opt/homebrew/include/QtCore/qprocessordetection.h \
   /opt/homebrew/include/QtCore/qrect.h \
   /opt/homebrew/include/QtCore/qrefcount.h \
+  /opt/homebrew/include/QtCore/qregularexpression.h \
   /opt/homebrew/include/QtCore/qscopedpointer.h \
   /opt/homebrew/include/QtCore/qscopeguard.h \
   /opt/homebrew/include/QtCore/qset.h \
@@ -4673,6 +4753,7 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: /Users/ahmetefesen/Deskto
   /opt/homebrew/include/QtCore/qversiontagging.h \
   /opt/homebrew/include/QtCore/qxptype_traits.h \
   /opt/homebrew/include/QtCore/qyieldcpu.h \
+  /opt/homebrew/include/QtGui/QPageLayout \
   /opt/homebrew/include/QtGui/qaction.h \
   /opt/homebrew/include/QtGui/qbitmap.h \
   /opt/homebrew/include/QtGui/qbrush.h \
@@ -4685,6 +4766,9 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: /Users/ahmetefesen/Deskto
   /opt/homebrew/include/QtGui/qicon.h \
   /opt/homebrew/include/QtGui/qimage.h \
   /opt/homebrew/include/QtGui/qkeysequence.h \
+  /opt/homebrew/include/QtGui/qpagelayout.h \
+  /opt/homebrew/include/QtGui/qpageranges.h \
+  /opt/homebrew/include/QtGui/qpagesize.h \
   /opt/homebrew/include/QtGui/qpaintdevice.h \
   /opt/homebrew/include/QtGui/qpalette.h \
   /opt/homebrew/include/QtGui/qpicture.h \
@@ -4699,9 +4783,33 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: /Users/ahmetefesen/Deskto
   /opt/homebrew/include/QtGui/qtguiexports.h \
   /opt/homebrew/include/QtGui/qtguiglobal.h \
   /opt/homebrew/include/QtGui/qtransform.h \
+  /opt/homebrew/include/QtGui/qvalidator.h \
   /opt/homebrew/include/QtGui/qwindowdefs.h \
+  /opt/homebrew/include/QtNetwork/qssl.h \
+  /opt/homebrew/include/QtNetwork/qsslcertificate.h \
+  /opt/homebrew/include/QtNetwork/qtnetwork-config.h \
+  /opt/homebrew/include/QtNetwork/qtnetworkexports.h \
+  /opt/homebrew/include/QtNetwork/qtnetworkglobal.h \
+  /opt/homebrew/include/QtQml/qjsvalue.h \
+  /opt/homebrew/include/QtQml/qqmlregistration.h \
+  /opt/homebrew/include/QtQml/qtqml-config.h \
+  /opt/homebrew/include/QtQml/qtqmlexports.h \
+  /opt/homebrew/include/QtQml/qtqmlglobal.h \
+  /opt/homebrew/include/QtQmlIntegration/qqmlintegration.h \
+  /opt/homebrew/include/QtWebEngineCore/qtwebenginecore-config.h \
+  /opt/homebrew/include/QtWebEngineCore/qtwebenginecoreglobal.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebengineclientcertificateselection.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebenginedownloadrequest.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebengineframe.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebenginepage.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebenginepermission.h \
+  /opt/homebrew/include/QtWebEngineCore/qwebenginequotarequest.h \
+  /opt/homebrew/include/QtWebEngineWidgets/qtwebenginewidgetsglobal.h \
   /opt/homebrew/include/QtWidgets/qabstractbutton.h \
+  /opt/homebrew/include/QtWidgets/qabstractspinbox.h \
   /opt/homebrew/include/QtWidgets/qboxlayout.h \
+  /opt/homebrew/include/QtWidgets/qdialog.h \
+  /opt/homebrew/include/QtWidgets/qdialogbuttonbox.h \
   /opt/homebrew/include/QtWidgets/qframe.h \
   /opt/homebrew/include/QtWidgets/qgridlayout.h \
   /opt/homebrew/include/QtWidgets/qlayout.h \
@@ -4712,25 +4820,45 @@ CMakeFiles/RadarMapApplication.dir/controlpanel.cpp.o: /Users/ahmetefesen/Deskto
   /opt/homebrew/include/QtWidgets/qtwidgetsglobal.h \
   /opt/homebrew/include/QtWidgets/qwidget.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QDebug \
+  /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QMap \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
   /opt/homebrew/lib/QtCore.framework/Headers/QTime \
   /opt/homebrew/lib/QtCore.framework/Headers/QTimer \
+  /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
+  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
   /opt/homebrew/lib/QtCore.framework/Headers/qdatetime.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qdebug.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qmap.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qtimer.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
   /opt/homebrew/lib/QtGui.framework/Headers/QFont \
   /opt/homebrew/lib/QtGui.framework/Headers/qfont.h \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEnginePage \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEngineProfile \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEngineSettings \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebenginepage.h \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebengineprofile.h \
+  /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebenginesettings.h \
+  /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers/QWebEngineView \
+  /opt/homebrew/lib/QtWebEngineWidgets.framework/Headers/qwebengineview.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QCheckBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qcheckbox.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h
 
 CMakeFiles/RadarMapApplication.dir/main.cpp.o: /Users/ahmetefesen/Desktop/onlinedeneme/main.cpp \
@@ -4744,7 +4872,6 @@ CMakeFiles/RadarMapApplication.dir/main.cpp.o: /Users/ahmetefesen/Desktop/online
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__xlocale.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_abort.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_locale.h \
@@ -5996,12 +6123,16 @@ CMakeFiles/RadarMapApplication.dir/main.cpp.o: /Users/ahmetefesen/Desktop/online
   /opt/homebrew/include/QtWidgets/qwidget.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QDir \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QMap \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
   /opt/homebrew/lib/QtCore.framework/Headers/QTime \
   /opt/homebrew/lib/QtCore.framework/Headers/QTimer \
   /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
   /opt/homebrew/lib/QtCore.framework/Headers/QVector \
   /opt/homebrew/lib/QtCore.framework/Headers/qdatetime.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qdir.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qmap.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qtimer.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
   /opt/homebrew/lib/QtGui.framework/Headers/QPalette \
@@ -6030,6 +6161,7 @@ CMakeFiles/RadarMapApplication.dir/main.cpp.o: /Users/ahmetefesen/Desktop/online
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QStatusBar \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QStyleFactory \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTabWidget \
@@ -6052,6 +6184,7 @@ CMakeFiles/RadarMapApplication.dir/main.cpp.o: /Users/ahmetefesen/Desktop/online
   /opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qstatusbar.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qstylefactory.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h \
@@ -6070,7 +6203,6 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: /Users/ahmetefesen/Desktop/
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__xlocale.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_abort.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_locale.h \
@@ -7112,6 +7244,8 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: /Users/ahmetefesen/Desktop/
   /opt/homebrew/include/QtCore/qbytearraylist.h \
   /opt/homebrew/include/QtCore/qbytearrayview.h \
   /opt/homebrew/include/QtCore/qcalendar.h \
+  /opt/homebrew/include/QtCore/qcborcommon.h \
+  /opt/homebrew/include/QtCore/qcborvalue.h \
   /opt/homebrew/include/QtCore/qchar.h \
   /opt/homebrew/include/QtCore/qcompare.h \
   /opt/homebrew/include/QtCore/qcompare_impl.h \
@@ -7156,6 +7290,9 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: /Users/ahmetefesen/Desktop/
   /opt/homebrew/include/QtCore/qitemselectionmodel.h \
   /opt/homebrew/include/QtCore/qiterable.h \
   /opt/homebrew/include/QtCore/qiterator.h \
+  /opt/homebrew/include/QtCore/qjsondocument.h \
+  /opt/homebrew/include/QtCore/qjsonparseerror.h \
+  /opt/homebrew/include/QtCore/qjsonvalue.h \
   /opt/homebrew/include/QtCore/qlatin1stringview.h \
   /opt/homebrew/include/QtCore/qline.h \
   /opt/homebrew/include/QtCore/qlist.h \
@@ -7231,6 +7368,7 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: /Users/ahmetefesen/Desktop/
   /opt/homebrew/include/QtCore/qtypes.h \
   /opt/homebrew/include/QtCore/qurl.h \
   /opt/homebrew/include/QtCore/qutf8stringview.h \
+  /opt/homebrew/include/QtCore/quuid.h \
   /opt/homebrew/include/QtCore/qvariant.h \
   /opt/homebrew/include/QtCore/qvarlengtharray.h \
   /opt/homebrew/include/QtCore/qversiontagging.h \
@@ -7323,12 +7461,27 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: /Users/ahmetefesen/Desktop/
   /opt/homebrew/include/QtWidgets/qtwidgetsexports.h \
   /opt/homebrew/include/QtWidgets/qtwidgetsglobal.h \
   /opt/homebrew/include/QtWidgets/qwidget.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QDateTime \
+  /opt/homebrew/lib/QtCore.framework/Headers/QFile \
+  /opt/homebrew/lib/QtCore.framework/Headers/QFileInfo \
+  /opt/homebrew/lib/QtCore.framework/Headers/QJsonArray \
+  /opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+  /opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QMap \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
   /opt/homebrew/lib/QtCore.framework/Headers/QTime \
   /opt/homebrew/lib/QtCore.framework/Headers/QTimer \
   /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
   /opt/homebrew/lib/QtCore.framework/Headers/QVector \
   /opt/homebrew/lib/QtCore.framework/Headers/qdatetime.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qfileinfo.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qmap.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qtimer.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
   /opt/homebrew/lib/QtGui.framework/Headers/QAction \
@@ -7360,6 +7513,7 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: /Users/ahmetefesen/Desktop/
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QStatusBar \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTabWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
@@ -7384,6 +7538,7 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: /Users/ahmetefesen/Desktop/
   /opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qstatusbar.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
@@ -7401,7 +7556,6 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__xlocale.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_abort.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_locale.h \
@@ -8195,6 +8349,7 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/clocale \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/compare \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/complex \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/concepts \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdarg \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef \
@@ -8236,6 +8391,7 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/queue \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ratio \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stack \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stddef.h \
@@ -8261,6 +8417,7 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/wctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/ctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/errno.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/gethostuuid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/_OSByteOrder.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/arm/_OSByteOrder.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/limits.h \
@@ -8289,6 +8446,7 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdlib.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/string.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/strings.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/__endian.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_endian.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h \
@@ -8303,6 +8461,7 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_rwlockattr_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_blkcnt_t.h \
@@ -8319,6 +8478,7 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_set.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_setsize.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_zero.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsblkcnt_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsfilcnt_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_gid_t.h \
@@ -8340,8 +8500,10 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_posix_vdisable.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_rsize_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_sigaltstack.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_sigset_t.h \
@@ -8362,6 +8524,7 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uid_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_useconds_t.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uuid_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_wchar_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_wint_t.h \
@@ -8370,10 +8533,13 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/qos.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/resource.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/select.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/signal.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/stat.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/stdio.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/types.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/unistd.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/wait.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/time.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h \
@@ -8408,6 +8574,7 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdint.h \
+  /Users/ahmetefesen/Desktop/onlinedeneme/geo.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/mapwidget.h \
   /opt/homebrew/include/QtCore/QFlags \
   /opt/homebrew/include/QtCore/QList \
@@ -8621,14 +8788,44 @@ CMakeFiles/RadarMapApplication.dir/mapwidget.cpp.o: /Users/ahmetefesen/Desktop/o
   /opt/homebrew/include/QtWidgets/qtwidgetsexports.h \
   /opt/homebrew/include/QtWidgets/qtwidgetsglobal.h \
   /opt/homebrew/include/QtWidgets/qwidget.h \
+  /opt/homebrew/include/cpl_atomic_ops.h \
+  /opt/homebrew/include/cpl_config.h \
+  /opt/homebrew/include/cpl_conv.h \
+  /opt/homebrew/include/cpl_error.h \
+  /opt/homebrew/include/cpl_json.h \
+  /opt/homebrew/include/cpl_minixml.h \
+  /opt/homebrew/include/cpl_multiproc.h \
+  /opt/homebrew/include/cpl_port.h \
+  /opt/homebrew/include/cpl_progress.h \
+  /opt/homebrew/include/cpl_string.h \
+  /opt/homebrew/include/cpl_virtualmem.h \
+  /opt/homebrew/include/cpl_vsi.h \
+  /opt/homebrew/include/gdal.h \
+  /opt/homebrew/include/gdal_frmts.h \
+  /opt/homebrew/include/gdal_fwd.h \
+  /opt/homebrew/include/gdal_priv.h \
+  /opt/homebrew/include/gdal_version.h \
+  /opt/homebrew/include/gdalsubdatasetinfo.h \
+  /opt/homebrew/include/ogr_api.h \
+  /opt/homebrew/include/ogr_core.h \
+  /opt/homebrew/include/ogr_feature.h \
+  /opt/homebrew/include/ogr_featurestyle.h \
+  /opt/homebrew/include/ogr_geomcoordinateprecision.h \
+  /opt/homebrew/include/ogr_geometry.h \
+  /opt/homebrew/include/ogr_spatialref.h \
+  /opt/homebrew/include/ogr_srs_api.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QDebug \
   /opt/homebrew/lib/QtCore.framework/Headers/QDir \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
   /opt/homebrew/lib/QtCore.framework/Headers/QTimer \
   /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
+  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
   /opt/homebrew/lib/QtCore.framework/Headers/qdebug.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qdir.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qtimer.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
   /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEnginePage \
   /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEngineProfile \
   /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEngineSettings \
@@ -8655,7 +8852,6 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__xlocale.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_abort.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_locale.h \
@@ -9901,10 +10097,14 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
   /opt/homebrew/include/QtWidgets/qwidget.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QFileInfo \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
+  /opt/homebrew/lib/QtCore.framework/Headers/QRegularExpression \
   /opt/homebrew/lib/QtCore.framework/Headers/QTimer \
   /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
   /opt/homebrew/lib/QtCore.framework/Headers/QVector \
   /opt/homebrew/lib/QtCore.framework/Headers/qfileinfo.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/qregularexpression.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qtimer.h \
   /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
   /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEnginePage \
@@ -9923,6 +10123,7 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
   /opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QHeaderView \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QListWidget \
@@ -9931,6 +10132,8 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
   /opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QTabBar \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTabWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTreeWidget \
@@ -9943,6 +10146,7 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
   /opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qheaderview.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qlistwidget.h \
@@ -9951,17 +10155,53 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
   /opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qtabbar.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtreewidget.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h
 
 
-/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h:
+/opt/homebrew/lib/QtWidgets.framework/Headers/qheaderview.h:
+
+/opt/homebrew/lib/QtWidgets.framework/Headers/QHeaderView:
 
 /opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout:
 
-/opt/homebrew/lib/QtCore.framework/Headers/qfileinfo.h:
+/opt/homebrew/include/ogr_geomcoordinateprecision.h:
+
+/opt/homebrew/include/ogr_feature.h:
+
+/opt/homebrew/include/ogr_core.h:
+
+/opt/homebrew/include/ogr_api.h:
+
+/opt/homebrew/include/gdal_version.h:
+
+/opt/homebrew/include/cpl_vsi.h:
+
+/opt/homebrew/include/cpl_virtualmem.h:
+
+/opt/homebrew/include/cpl_json.h:
+
+/opt/homebrew/include/cpl_conv.h:
+
+/opt/homebrew/include/cpl_config.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/unistd.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/select.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_posix_vdisable.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/strings.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/gethostuuid.h:
 
 /opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h:
 
@@ -9969,11 +10209,33 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 
 /opt/homebrew/lib/QtGui.framework/Headers/qaction.h:
 
-/opt/homebrew/include/QtWidgets/qdialogbuttonbox.h:
+/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h:
 
-/opt/homebrew/include/QtWidgets/qdialog.h:
+/opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h:
+
+/opt/homebrew/lib/QtCore.framework/Headers/qfileinfo.h:
+
+/opt/homebrew/lib/QtCore.framework/Headers/qfile.h:
+
+/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument:
+
+/opt/homebrew/lib/QtCore.framework/Headers/QFile:
+
+/opt/homebrew/lib/QtCore.framework/Headers/QDateTime:
+
+/opt/homebrew/include/QtCore/qjsonvalue.h:
+
+/opt/homebrew/include/QtCore/qjsonparseerror.h:
+
+/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h:
+
+/opt/homebrew/include/QtCore/qjsondocument.h:
 
 /opt/homebrew/include/QtCore/qdir.h:
+
+/opt/homebrew/include/QtCore/qcborvalue.h:
+
+/opt/homebrew/include/QtCore/qcborcommon.h:
 
 /opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h:
 
@@ -9988,8 +10250,6 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 /opt/homebrew/include/QtCore/qcoreapplication_platform.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/print:
-
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/format:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__ranges/ref_view.h:
 
@@ -10033,6 +10293,12 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 
 /opt/homebrew/lib/QtCore.framework/Headers/qdebug.h:
 
+/opt/homebrew/include/QtWidgets/qdialogbuttonbox.h:
+
+/opt/homebrew/include/QtWidgets/qdialog.h:
+
+/Users/ahmetefesen/Desktop/onlinedeneme/geo.h:
+
 /opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h:
 
 /opt/homebrew/lib/QtWidgets.framework/Headers/qtreewidget.h:
@@ -10042,6 +10308,8 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 /opt/homebrew/lib/QtWidgets.framework/Headers/QMenu:
 
 /opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h:
+
+/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h:
 
 /opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h:
 
@@ -10072,6 +10340,10 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 /opt/homebrew/lib/QtWebEngineCore.framework/Headers/QWebEngineProfile:
 
 /opt/homebrew/lib/QtCore.framework/Headers/qtimer.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/format:
+
+/opt/homebrew/lib/QtCore.framework/Headers/qmap.h:
 
 /opt/homebrew/lib/QtCore.framework/Headers/qdatetime.h:
 
@@ -10119,8 +10391,6 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 
 /opt/homebrew/include/QtNetwork/qtnetworkexports.h:
 
-/opt/homebrew/include/QtNetwork/qssl.h:
-
 /opt/homebrew/include/QtGui/qtransform.h:
 
 /opt/homebrew/include/QtGui/qtguiglobal.h:
@@ -10148,6 +10418,8 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 /opt/homebrew/include/QtGui/qicon.h:
 
 /opt/homebrew/include/QtGui/qfontmetrics.h:
+
+/opt/homebrew/include/cpl_minixml.h:
 
 /opt/homebrew/include/QtGui/qfontinfo.h:
 
@@ -10183,8 +10455,6 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 
 /opt/homebrew/include/QtCore/qtenvironmentvariables.h:
 
-/opt/homebrew/include/QtCore/qtconfigmacros.h:
-
 /opt/homebrew/lib/QtGui.framework/Headers/QFont:
 
 /opt/homebrew/include/QtCore/qtconfiginclude.h:
@@ -10194,6 +10464,8 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 /opt/homebrew/include/QtCore/qswap.h:
 
 /opt/homebrew/include/QtCore/qstringliteral.h:
+
+/opt/homebrew/lib/QtCore.framework/Headers/QJsonArray:
 
 /opt/homebrew/include/QtCore/qstringfwd.h:
 
@@ -10277,8 +10549,6 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 
 /opt/homebrew/include/QtCore/qarraydataops.h:
 
-/opt/homebrew/include/QtCore/qanystringview.h:
-
 /opt/homebrew/include/QtCore/qalgorithms.h:
 
 /opt/homebrew/include/QtCore/qabstracteventdispatcher.h:
@@ -10292,8 +10562,6 @@ CMakeFiles/RadarMapApplication.dir/sidebar.cpp.o: /Users/ahmetefesen/Desktop/onl
 /opt/homebrew/include/QtCore/q20iterator.h:
 
 /opt/homebrew/include/QtCore/q20algorithm.h:
-
-/opt/homebrew/include/QtCore/QWeakPointer:
 
 /opt/homebrew/include/QtCore/QString:
 
@@ -10357,6 +10625,8 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 
 /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang.cmake:
 
+/opt/homebrew/share/cmake/Modules/Platform/Darwin-Determine-CXX.cmake:
+
 /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang-CXX.cmake:
 
 /opt/homebrew/share/cmake/Modules/Platform/Apple-AppleClang-CXX.cmake:
@@ -10365,7 +10635,11 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 
 /opt/homebrew/share/cmake/Modules/Linker/AppleClang-CXX.cmake:
 
+/opt/homebrew/share/cmake/Modules/Internal/FeatureTesting.cmake:
+
 /opt/homebrew/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:
+
+/opt/homebrew/share/cmake/Modules/Internal/CMakeInspectCXXLinker.cmake:
 
 /opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout:
 
@@ -10381,9 +10655,51 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 
 /opt/homebrew/share/cmake/Modules/FindOpenGL.cmake:
 
+/opt/homebrew/share/cmake/Modules/FindGDAL.cmake:
+
 /opt/homebrew/share/cmake/Modules/FindCups.cmake:
 
+/opt/homebrew/share/cmake/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/XL-CXX-DetermineCompiler.cmake:
+
+/opt/homebrew/include/QtNetwork/qssl.h:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake:
+
+/opt/homebrew/include/QtCore/qanystringview.h:
+
+/opt/homebrew/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake:
+
+/opt/homebrew/include/QtCore/QWeakPointer:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake:
+
+/opt/homebrew/lib/QtCore.framework/Headers/QMap:
+
+/opt/homebrew/share/cmake/Modules/Compiler/HP-CXX-DetermineCompiler.cmake:
+
 /opt/homebrew/share/cmake/Modules/Compiler/GNU.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake:
 
 /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-CXX.cmake:
 
@@ -10393,7 +10709,13 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 
 /opt/homebrew/share/cmake/Modules/CheckCXXCompilerFlag.cmake:
 
+/opt/homebrew/share/cmake/Modules/CMakeTestCompilerCommon.cmake:
+
 /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInformation.cmake:
+
+/opt/homebrew/share/cmake/Modules/CMakeSystem.cmake.in:
+
+/opt/homebrew/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake:
 
 /opt/homebrew/share/cmake/Modules/CMakeInitializeConfigs.cmake:
 
@@ -10401,9 +10723,19 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 
 /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:
 
+/opt/homebrew/include/QtCore/qtconfigmacros.h:
+
+/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake:
+
+/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:
+
+/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:
+
 /opt/homebrew/share/cmake/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake:
 
 /opt/homebrew/share/cmake/Modules/CMakeCXXInformation.cmake:
+
+/opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp:
 
 /opt/homebrew/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake:
 
@@ -10430,6 +10762,8 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 /opt/homebrew/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Widgets/Qt6QMacStylePluginConfig.cmake:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream:
 
 /opt/homebrew/lib/cmake/Qt6WebEngineWidgetsPrivate/Qt6WebEngineWidgetsPrivateTargets.cmake:
 
@@ -10549,6 +10883,8 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 
 /opt/homebrew/lib/cmake/Qt6Quick/Qt6QuickConfigVersionImpl.cmake:
 
+/opt/homebrew/include/cpl_port.h:
+
 /opt/homebrew/lib/cmake/Qt6Quick/Qt6QuickAdditionalTargetInfo.cmake:
 
 /opt/homebrew/lib/cmake/Qt6QmlWorkerScriptPrivate/Qt6QmlWorkerScriptPrivateDependencies.cmake:
@@ -10574,6 +10910,8 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 /opt/homebrew/include/QtCore/qabstractitemmodel.h:
 
 /opt/homebrew/lib/cmake/Qt6QmlTools/Qt6QmlToolsVersionlessTargets.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake:
 
 /opt/homebrew/lib/cmake/Qt6QmlTools/Qt6QmlToolsDependencies.cmake:
 
@@ -10616,6 +10954,8 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 /opt/homebrew/lib/cmake/Qt6QmlModels/Qt6QmlModelsVersionlessAliasTargets.cmake:
 
 /opt/homebrew/lib/cmake/Qt6QmlModels/Qt6QmlModelsTargets-release.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake:
 
 /opt/homebrew/lib/cmake/Qt6QmlModels/Qt6QmlModelsDependencies.cmake:
 
@@ -10767,6 +11107,8 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6quickwindowAdditionalTargetInfo.cmake:
 
+/opt/homebrew/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake:
+
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6quicktoolingTargets-release.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6quicktoolingConfig.cmake:
@@ -10827,7 +11169,11 @@ RadarMapApplication_autogen/mocs_compilation.cpp:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtwebenginequickdelegatespluginConfig.cmake:
 
+/opt/homebrew/share/cmake/Modules/CMakeDetermineCompiler.cmake:
+
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtvkbthaipluginTargets.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtvkbtcimepluginTargets-release.cmake:
 
@@ -11079,6 +11425,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtquick3dparticles3dpluginConfig.cmake:
 
+/opt/homebrew/lib/QtCore.framework/Headers/qpair.h:
+
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtquick3dparticles3dpluginAdditionalTargetInfo.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtquick3dparticleeffectspluginTargets.cmake:
@@ -11104,6 +11452,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp:
 /opt/homebrew/include/QtCore/qnamespace.h:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtquick3dhelpersimplpluginAdditionalTargetInfo.cmake:
+
+/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtquick3deffectpluginTargets.cmake:
 
@@ -11165,8 +11515,6 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qquickvectorimagepluginAdditionalTargetInfo.cmake:
 
-/opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qquicklayoutspluginTargets.cmake:
-
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qquicklayoutspluginTargets-release.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtquickcontrols2imaginestylepluginConfig.cmake:
@@ -11220,6 +11568,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp:
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlpluginTargets.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlpluginConfig.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6quick3dinputpluginConfig.cmake:
 
@@ -11332,6 +11682,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp:
 /opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6Quick3DXrpluginConfig.cmake:
+
+/opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlNetworkpluginTargets.cmake:
 
 /opt/homebrew/lib/cmake/Qt6QuickPrivate/Qt6QuickPrivateTargets.cmake:
 
@@ -11491,6 +11843,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp:
 
 /opt/homebrew/lib/cmake/Qt6NetworkPrivate/Qt6NetworkPrivateAdditionalTargetInfo.cmake:
 
+/opt/homebrew/share/cmake/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake:
+
 /opt/homebrew/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6PdfQuickpluginTargets-release.cmake:
@@ -11563,11 +11917,15 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp:
 
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QWbmpPluginTargets-release.cmake:
 
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/complex:
+
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QWbmpPluginAdditionalTargetInfo.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6labsanimationpluginTargets-release.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QVirtualKeyboardPluginTargets-release.cmake:
+
+/opt/homebrew/share/cmake/Modules/CMakeCXXCompiler.cmake.in:
 
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QVirtualKeyboardPluginConfig.cmake:
 
@@ -11592,6 +11950,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_sidebar.cpp:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_set_union.h:
 
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QSvgPluginAdditionalTargetInfo.cmake:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6modelspluginTargets-release.cmake:
 
@@ -11791,6 +12151,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /opt/homebrew/lib/cmake/Qt6Core/Qt6QDarwinCameraPermissionPluginDependencies.cmake:
 
+/opt/homebrew/include/gdalsubdatasetinfo.h:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/array:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/q20iterator.h:
@@ -11914,6 +12276,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/common_type.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/cmake/Qt6/QtPublicSbomGenerationHelpers.cmake:
+
+/opt/homebrew/include/ogr_srs_api.h:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6positioningquickpluginConfig.cmake:
 
@@ -12231,6 +12595,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qxptype_traits.h:
 
+/opt/homebrew/lib/QtCore.framework/Headers/QRegularExpression:
+
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qversiontagging.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qvector.h:
@@ -12411,6 +12777,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qlist.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake:
+
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6GraphspluginConfig.cmake:
 
 /opt/homebrew/include/QtCore/qshareddata.h:
@@ -12465,6 +12833,10 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qexceptionhandling.h:
 
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/tuple_like.h:
+
+/opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QStackedWidget:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/compare:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qeventloop.h:
@@ -12488,6 +12860,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int8_t.h:
 
 /opt/homebrew/lib/cmake/Qt6Core/Qt6QDarwinMicrophonePermissionPluginAdditionalTargetInfo.cmake:
+
+/opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qstackedwidget.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qcryptographichash.h:
 
@@ -12575,6 +12949,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qspan.h:
 
+/opt/homebrew/include/gdal_priv.h:
+
 /opt/homebrew/lib/cmake/Qt6QmlAssetDownloader/Qt6QmlAssetDownloaderConfigVersionImpl.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/datasizeof.h:
@@ -12594,6 +12970,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__utility/convert_to_integral.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QUrl:
+
+/opt/homebrew/share/cmake/Modules/CMakeUnixFindMake.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__utility/auto_cast.h:
 
@@ -12699,7 +13077,13 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h:
 
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h:
+
+/opt/homebrew/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uid_t.h:
+
+/opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QMap:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ucontext.h:
 
@@ -12728,6 +13112,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /opt/homebrew/lib/cmake/Qt6Positioning/Qt6PositioningPlugins.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int.h:
+
+/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__concepts/derived_from.h:
 
@@ -12829,6 +13215,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QMngPluginAdditionalTargetInfo.cmake:
 
+/opt/homebrew/lib/QtWidgets.framework/Headers/QTabBar:
+
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qtmetamacros.h:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6QuickControlsTestUtilsPrivatepluginAdditionalTargetInfo.cmake:
@@ -12878,6 +13266,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QSvgPluginTargets-release.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:
+
+/opt/homebrew/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake:
 
 /opt/homebrew/lib/cmake/Qt6QmlIntegration/Qt6QmlIntegrationAdditionalTargetInfo.cmake:
 
@@ -12985,6 +13375,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/locale.h:
 
+/opt/homebrew/include/cpl_atomic_ops.h:
+
 /opt/homebrew/lib/cmake/Qt6Positioning/Qt6PositioningConfigVersion.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QMinimalIntegrationPluginTargets-release.cmake:
@@ -13023,6 +13415,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string_view:
 
+/opt/homebrew/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake:
+
 /opt/homebrew/lib/cmake/Qt6Qml/Qt6QQuick3DProfilerAdapterFactoryPluginAdditionalTargetInfo.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h:
@@ -13057,6 +13451,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/pstl_backends/cpu_backends/any_of.h:
 
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uuid_t.h:
+
 /opt/homebrew/include/QtGui/qcolor.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/functional:
@@ -13071,6 +13467,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_is_heap.h:
 
+/opt/homebrew/include/cpl_multiproc.h:
+
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QList:
 
 /Users/ahmetefesen/Desktop/onlinedeneme/mainwindow.h:
@@ -13084,6 +13482,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /opt/homebrew/lib/cmake/Qt6QmlWorkerScriptPrivate/Qt6QmlWorkerScriptPrivateTargets.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/iterator.h:
+
+/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtquickcontrols2implpluginConfig.cmake:
 
@@ -13167,7 +13567,11 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/runetype.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_t.h:
+
+/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:
 
@@ -13190,6 +13594,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_nothrow_copy_constructible.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_pointer.h:
+
+/opt/homebrew/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ctime:
 
@@ -13269,6 +13675,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/lazy.h:
 
+/opt/homebrew/include/cpl_progress.h:
+
 /opt/homebrew/lib/cmake/Qt6Core/Qt6QDarwinLocationPermissionPluginConfig.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_void.h:
@@ -13328,6 +13736,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_specialization.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale_dir/locale_base_api/bsd_locale_defaults.h:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_same.h:
 
@@ -13390,6 +13800,8 @@ RadarMapApplication_autogen/moc_predefs.h:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_literal_type.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/q17memory.h:
 
@@ -13547,8 +13959,6 @@ RadarMapApplication_autogen/moc_predefs.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtWebEngineCore.framework/Versions/A/Headers/QWebEnginePage:
 
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/tuple_like.h:
-
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/tuple_indices.h:
 
 /opt/homebrew/include/QtCore/qlatin1stringview.h:
@@ -13624,8 +14034,6 @@ RadarMapApplication_autogen/moc_predefs.h:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_reverse.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_equality_comparable.h:
-
-/opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlNetworkpluginTargets.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Positioning/Qt6QGeoPositionInfoSourceFactoryNmeaPluginTargets.cmake:
 
@@ -13889,6 +14297,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_mainwindow.cpp:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/cmake/Qt6/QtPublicToolHelpers.cmake:
 
+/opt/homebrew/include/ogr_featurestyle.h:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/make_tuple_types.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_char_like_type.h:
@@ -13918,6 +14328,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_mainwindow.cpp:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/erase_if_container.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/empty.h:
+
+/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Network/Qt6NetworkDependencies.cmake:
 
@@ -13999,11 +14411,15 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_mainwindow.cpp:
 
 /opt/homebrew/include/QtWidgets/qtwidgets-config.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake:
+
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QPdfPluginTargets-release.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_destructible.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/min.h:
+
+/opt/homebrew/include/gdal_frmts.h:
 
 /opt/homebrew/include/QtCore/qyieldcpu.h:
 
@@ -14037,6 +14453,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_mainwindow.cpp:
 
 /opt/homebrew/lib/cmake/Qt6Positioning/Qt6QGeoPositionInfoSourceFactoryNmeaPluginTargets-release.cmake:
 
+/opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__xlocale.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/indirectly_comparable.h:
@@ -14052,6 +14470,8 @@ RadarMapApplication_autogen/EWIEGA46WW/moc_mainwindow.cpp:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_trivially_default_constructible.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__concepts/constructible.h:
+
+/opt/homebrew/include/ogr_spatialref.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_set_difference.h:
 
@@ -14147,6 +14567,8 @@ CMakeFiles/4.0.3/CMakeCXXCompiler.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__exception/exception_ptr.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/invoke.h:
 
 /opt/homebrew/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsDependencies.cmake:
@@ -14170,6 +14592,10 @@ CMakeFiles/4.0.3/CMakeCXXCompiler.cmake:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_replace_copy_if.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_reference.h:
+
+/opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qquicklayoutspluginTargets.cmake:
+
+/opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/QPair:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/next.h:
 
@@ -14208,6 +14634,8 @@ CMakeFiles/4.0.3/CMakeCXXCompiler.cmake:
 /opt/homebrew/lib/cmake/Qt6Core/Qt6QDarwinCameraPermissionPluginTargets-release.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__format/range_formatter.h:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qalgorithms.h:
 
@@ -14413,6 +14841,8 @@ CMakeFiles/4.0.3/CMakeCXXCompiler.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/errc.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit/endian.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__utility/pair.h:
@@ -14458,6 +14888,8 @@ CMakeFiles/4.0.3/CMakeCXXCompiler.cmake:
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphicaleffectspluginConfig.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__atomic/kill_dependency.h:
+
+/opt/homebrew/include/gdal_fwd.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/streambuf.h:
 
@@ -14607,6 +15039,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/set_union.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_sigset_t.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_trivially_copy_constructible.h:
@@ -14624,6 +15058,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/rotate.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/copy_cv.h:
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/stat.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__chrono/calendar.h:
 
@@ -14685,6 +15121,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qtreewidget.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/set_difference.h:
@@ -14704,6 +15142,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 /opt/homebrew/lib/cmake/Qt6Core/Qt6QDarwinCalendarPermissionPluginTargets.cmake:
 
 /opt/homebrew/lib/cmake/Qt6ConcurrentPrivate/Qt6ConcurrentPrivateAdditionalTargetInfo.cmake:
+
+/opt/homebrew/include/gdal.h:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlfolderlistmodelpluginTargets-release.cmake:
 
@@ -14739,6 +15179,10 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /opt/homebrew/lib/cmake/Qt6DBus/Qt6DBusTargets-release.cmake:
 
+/opt/homebrew/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake:
+
+/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/counted_iterator.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_search.h:
@@ -14752,6 +15196,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/function.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_max_element.h:
+
+/opt/homebrew/lib/QtCore.framework/Headers/QPair:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__math/rounding_functions.h:
 
@@ -14787,6 +15233,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /opt/homebrew/include/QtCore/qcontainerinfo.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake:
+
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/QSpinBox:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/is_sorted.h:
@@ -14812,6 +15260,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 /opt/homebrew/lib/cmake/Qt6Network/Qt6NetworkPlugins.cmake:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qtresource.h:
+
+/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_partition.h:
 
@@ -14853,6 +15303,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/unique_ptr.h:
 
+/opt/homebrew/include/ogr_geometry.h:
+
 /opt/homebrew/include/QtCore/q20utility.h:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtWidgets.framework/Versions/A/Headers/qwidget.h:
@@ -14875,6 +15327,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:
 
+/opt/homebrew/include/cpl_string.h:
+
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QJp2PluginTargets.cmake:
 
 /opt/homebrew/lib/cmake/Qt6CoreTools/Qt6CoreToolsAdditionalTargetInfo.cmake:
@@ -14893,6 +15347,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtWebEngineCore.framework/Versions/A/Headers/qwebenginequotarequest.h:
 
+/opt/homebrew/lib/QtCore.framework/Headers/qregularexpression.h:
+
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtCore.framework/Versions/A/Headers/qpoint.h:
 
 /opt/homebrew/lib/cmake/Qt6Gui/Qt6QJpegPluginConfig.cmake:
@@ -14910,6 +15366,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__utility/priority_tag.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__format/buffer.h:
+
+/opt/homebrew/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_copy_n.h:
 
@@ -15000,6 +15458,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 /opt/homebrew/Cellar/qt/6.9.1/lib/QtQml.framework/Versions/A/Headers/qtqmlexports.h:
 
 /opt/homebrew/lib/cmake/Qt6GuiTools/Qt6GuiToolsVersionlessTargets.cmake:
+
+/opt/homebrew/lib/QtWidgets.framework/Headers/qtabbar.h:
 
 /opt/homebrew/lib/cmake/Qt6PrintSupportPrivate/Qt6PrintSupportPrivateConfigVersion.cmake:
 
@@ -15301,6 +15761,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_wctype.h:
 
+/opt/homebrew/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake:
+
 /opt/homebrew/Cellar/qt/6.9.1/lib/cmake/Qt6/QtPublicAppleHelpers.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_base_of.h:
@@ -15325,6 +15787,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/pop_heap.h:
 
+/opt/homebrew/include/QtCore/quuid.h:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/is_sorted_until.h:
@@ -15332,6 +15796,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 /opt/homebrew/lib/cmake/Qt6QmlModels/Qt6QmlModelsConfigVersionImpl.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/signal.h:
+
+/opt/homebrew/include/cpl_error.h:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6positioningquickpluginTargets-release.cmake:
 
@@ -15358,6 +15824,8 @@ CMakeFiles/4.0.3/CMakeSystem.cmake:
 /opt/homebrew/lib/cmake/Qt6PositioningPrivate/Qt6PositioningPrivateConfigVersion.cmake:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/replace_copy.h:
+
+/opt/homebrew/share/cmake/Modules/CMakeCompilerIdDetection.cmake:
 
 /opt/homebrew/lib/cmake/Qt6Qml/QmlPlugins/Qt6positioningquickpluginTargets.cmake:
 

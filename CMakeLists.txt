@@ -7,6 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Qt6'yı bul
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Network WebEngineWidgets)
 
+# GDAL (DTED bbox için)
+find_package(GDAL REQUIRED)
+
 # Offline harita desteği için gerekli ayarlar
 # Marble entegrasyonu için hazırlık (şimdilik devre dışı)
 # set(MARBLE_APP_PATH "/Applications/Marble.app")
@@ -39,6 +42,7 @@ target_link_libraries(RadarMapApplication PRIVATE
     Qt6::Widgets 
     Qt6::Network 
     Qt6::WebEngineWidgets
+    GDAL::GDAL
 )
 
 # MOC, UIC ve RCC için

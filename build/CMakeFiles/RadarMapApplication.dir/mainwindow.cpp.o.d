@@ -330,7 +330,6 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h \
@@ -1213,6 +1212,10 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: \
   /opt/homebrew/lib/QtWebEngineCore.framework/Headers/qwebenginesettings.h \
   /opt/homebrew/lib/QtCore.framework/Headers/QUrl \
   /opt/homebrew/lib/QtCore.framework/Headers/QList \
+  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
+  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QPair \
+  /opt/homebrew/lib/QtCore.framework/Headers/qpair.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/sidebar.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QTabWidget \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qtabwidget.h \
@@ -1254,9 +1257,11 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QProgressBar \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qprogressbar.h \
-  /opt/homebrew/lib/QtCore.framework/Headers/QVector \
-  /opt/homebrew/lib/QtCore.framework/Headers/qvector.h \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
   /Users/ahmetefesen/Desktop/onlinedeneme/controlpanel.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QMap \
+  /opt/homebrew/lib/QtCore.framework/Headers/qmap.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
   /opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h \
   /opt/homebrew/include/QtCore/qcoreapplication.h \
@@ -1326,4 +1331,21 @@ CMakeFiles/RadarMapApplication.dir/mainwindow.cpp.o: \
   /opt/homebrew/lib/QtGui.framework/Headers/QAction \
   /opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
   /opt/homebrew/lib/QtWidgets.framework/Headers/QMenu \
-  /opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h
+  /opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+  /opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+  /opt/homebrew/include/QtCore/qjsonvalue.h \
+  /opt/homebrew/include/QtCore/qcborvalue.h \
+  /opt/homebrew/include/QtCore/qcborcommon.h \
+  /opt/homebrew/include/QtCore/quuid.h \
+  /opt/homebrew/include/QtCore/qjsondocument.h \
+  /opt/homebrew/include/QtCore/qjsonparseerror.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QJsonArray \
+  /opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+  /opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QFile \
+  /opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QFileInfo \
+  /opt/homebrew/lib/QtCore.framework/Headers/qfileinfo.h \
+  /opt/homebrew/lib/QtCore.framework/Headers/QDateTime

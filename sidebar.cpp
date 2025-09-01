@@ -20,6 +20,11 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QRegularExpression>
+#include <QHeaderView>
+#include <QTabBar>
+
+static QList<Sidebar::RadarProfile> s_radarProfiles;
 
 Sidebar::Sidebar(QWidget *parent)
     : QWidget(parent)
@@ -60,151 +65,196 @@ void Sidebar::setupUI()
     tabWidget->addTab(targetTab, "Target");
     
     connect(tabWidget, &QTabWidget::currentChanged, this, &Sidebar::onTabChanged);
+
+    // Tab bar scroll butonlarını açık tutuyoruz, genişliği kilitlemiyoruz
+    if (QTabBar *tb = tabWidget->tabBar()) {
+        tb->setExpanding(false);
+        tb->setUsesScrollButtons(true);
+        tabWidget->setElideMode(Qt::ElideNone);
+    }
+}
+
+int Sidebar::preferredWidthForFirstTabs(int count) const
+{
+    if (!tabWidget || !tabWidget->tabBar()) return 300;
+    QTabBar *tb = tabWidget->tabBar();
+    int w = 0;
+    for (int i = 0; i < count && i < tb->count(); ++i) {
+        w += tb->tabRect(i).width();
+    }
+    return qMax(300, w + 24);
 }
 
 void Sidebar::createGeneralTab()
 {
     generalTab = new QWidget();
     QVBoxLayout *layout = new QVBoxLayout(generalTab);
-    
+
+    generalSubTabs = new QTabWidget(generalTab);
+    layout->addWidget(generalSubTabs);
+
+    // -------- Initial Alt Sekmesi --------
+    generalInitialTab = new QWidget();
+    QVBoxLayout *mainLay = new QVBoxLayout(generalInitialTab);
+
+    // Active radar label + name
+    QHBoxLayout *hdr = new QHBoxLayout();
+    activeRadarLabel = new QLabel(QString("Active Radar: #%1").arg(radarProfileCounter));
+    radarNameEdit = new QLineEdit(QString("Radar %1").arg(radarProfileCounter));
+    radarNameEdit->setPlaceholderText("Radar name");
+    hdr->addWidget(activeRadarLabel, 0);
+    hdr->addStretch(1);
+    hdr->addWidget(new QLabel("Name:"));
+    hdr->addWidget(radarNameEdit, 1);
+    mainLay->addLayout(hdr);
+
     // Radar Section
     QGroupBox *radarGroup = new QGroupBox("Radar");
     QFormLayout *radarLayout = new QFormLayout(radarGroup);
-    
     QLineEdit *radarName = new QLineEdit();
     radarName->setPlaceholderText("Enter radar name");
     radarLayout->addRow("Radar Name:", radarName);
-    
-    layout->addWidget(radarGroup);
-    
+    mainLay->addWidget(radarGroup);
+
     // Initial Position Section
     QGroupBox *initialPositionGroup = new QGroupBox("Initial Position");
     QFormLayout *initialPositionLayout = new QFormLayout(initialPositionGroup);
-    
-    QDoubleSpinBox *latitude = new QDoubleSpinBox();
-    latitude->setRange(-90.0, 90.0);
-    latitude->setValue(0.0);
-    latitude->setDecimals(6);
-    latitude->setSuffix(" Deg");
-    initialPositionLayout->addRow("Latitude (N):", latitude);
-    
-    QDoubleSpinBox *longitude = new QDoubleSpinBox();
-    longitude->setRange(-180.0, 180.0);
-    longitude->setValue(0.0);
-    longitude->setDecimals(6);
-    longitude->setSuffix(" Deg");
-    initialPositionLayout->addRow("Longitude (W):", longitude);
-    
-    QDoubleSpinBox *altitude = new QDoubleSpinBox();
-    altitude->setRange(0.0, 50000.0);
-    altitude->setValue(0.0);
-    altitude->setSuffix(" m");
-    initialPositionLayout->addRow("Altitude:", altitude);
-    
-    QDoubleSpinBox *rcs = new QDoubleSpinBox();
-    rcs->setRange(-50.0, 50.0);
-    rcs->setValue(0.0);
-    rcs->setSuffix(" dBsm");
-    initialPositionLayout->addRow("RCS:", rcs);
-    
-    QDoubleSpinBox *velocityN = new QDoubleSpinBox();
-    velocityN->setRange(-1000.0, 1000.0);
-    velocityN->setValue(0.0);
-    velocityN->setSuffix(" mps");
-    initialPositionLayout->addRow("Velocity N:", velocityN);
-    
-    QDoubleSpinBox *velocityE = new QDoubleSpinBox();
-    velocityE->setRange(-1000.0, 1000.0);
-    velocityE->setValue(0.0);
-    velocityE->setSuffix(" mps");
-    initialPositionLayout->addRow("Velocity E:", velocityE);
-    
-    QDoubleSpinBox *velocityD = new QDoubleSpinBox();
-    velocityD->setRange(-1000.0, 1000.0);
-    velocityD->setValue(0.0);
-    velocityD->setSuffix(" mps");
-    initialPositionLayout->addRow("Velocity D:", velocityD);
-    
-    layout->addWidget(initialPositionGroup);
-    
-    // Waypoint List Section
-    QGroupBox *waypointGroup = new QGroupBox("Waypoint List - Selected Target");
-    waypointGroup->setFont(QFont("Arial", 9, QFont::Bold));
-    QVBoxLayout *waypointLayout = new QVBoxLayout(waypointGroup);
-    waypointLayout->setSpacing(5);
-    
-    selectedTargetLabel = new QLabel("Selected Target: None");
-    selectedTargetLabel->setFont(QFont("Arial", 8, QFont::Italic));
-    selectedTargetLabel->setStyleSheet("color: blue;");
-    aypointLayout->addWidget(selectedTargetLabel);
-    
-    waypointList = new QListWidget();
-    waypointList->setFont(QFont("Arial", 8));
-    waypointList->setMaximumHeight(80);
-    waypointLayout->addWidget(waypointList);
-    
-    QHBoxLayout *waypointButtonLayout = new QHBoxLayout();
-    waypointButtonLayout->setSpacing(5);
-    appendWaypointBtn = new QPushButton("Append Waypoint");
-    deleteWaypointBtn = new QPushButton("Delete Waypoint");
-   
-    appendWaypointBtn->setFont(QFont("Arial", 8));
-    deleteWaypointBtn->setFont(QFont("Arial", 8));
-    appendWaypointBtn->setEnabled(false);
+    generalLatSpin = new QDoubleSpinBox();
+    generalLatSpin->setRange(-90.0, 90.0);
+    generalLatSpin->setValue(47.93943);
+    generalLatSpin->setDecimals(6);
+    generalLatSpin->setSuffix(" Deg");
+    initialPositionLayout->addRow("Latitude (N):", generalLatSpin);
+    generalLonSpin = new QDoubleSpinBox();
+    generalLonSpin->setRange(-180.0, 180.0);
+    generalLonSpin->setValue(3.68785);
+    generalLonSpin->setDecimals(6);
+    generalLonSpin->setSuffix(" Deg");
+    initialPositionLayout->addRow("Longitude (W):", generalLonSpin);
+    generalAltSpin = new QDoubleSpinBox();
+    generalAltSpin->setRange(0.0, 50000.0);
+    generalAltSpin->setValue(1000.0);
+    generalAltSpin->setSuffix(" m");
+    initialPositionLayout->addRow("Altitude:", generalAltSpin);
+    generalRcsSpin = new QDoubleSpinBox();
+    generalRcsSpin->setRange(-50.0, 50.0);
+    generalRcsSpin->setValue(10.0);
+    generalRcsSpin->setSuffix(" dBsm");
+    initialPositionLayout->addRow("RCS:", generalRcsSpin);
+    generalVelNSpin = new QDoubleSpinBox();
+    generalVelNSpin->setRange(-1000.0, 1000.0);
+    generalVelNSpin->setValue(0.0);
+    generalVelNSpin->setSuffix(" mps");
+    initialPositionLayout->addRow("Velocity N:", generalVelNSpin);
+    generalVelESpin = new QDoubleSpinBox();
+    generalVelESpin->setRange(-1000.0, 1000.0);
+    generalVelESpin->setValue(0.0);
+    generalVelESpin->setSuffix(" mps");
+    initialPositionLayout->addRow("Velocity E:", generalVelESpin);
+    generalVelDSpin = new QDoubleSpinBox();
+    generalVelDSpin->setRange(-1000.0, 1000.0);
+    generalVelDSpin->setValue(0.0);
+    generalVelDSpin->setSuffix(" mps");
+    initialPositionLayout->addRow("Velocity D:", generalVelDSpin);
 
-    
-  waypointButtonLayout->addWidget(appendWaypointBtn);
-waypointButtonLayout->addWidget(deleteWaypointBtn);
-waypointLayout->addLayout(waypointButtonLayout);
+    mainLay->addWidget(initialPositionGroup);
 
-layout->addWidget(waypointGroup);
+    // Initial position değişikliklerini dinle
+    connect(generalLatSpin, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &Sidebar::onInitialPositionChanged);
+    connect(generalLonSpin, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &Sidebar::onInitialPositionChanged);
+    connect(generalAltSpin, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &Sidebar::onInitialPositionChanged);
 
-    
-    // Trajectory Section
-    QGroupBox *trajectoryGroup = new QGroupBox("Trajectory");
-    QFormLayout *trajectoryLayout = new QFormLayout(trajectoryGroup);
-    
-    QDoubleSpinBox *trajLatitude = new QDoubleSpinBox();
-    trajLatitude->setRange(-90.0, 90.0);
-    trajLatitude->setValue(0.0);
-    trajLatitude->setDecimals(6);
-    trajLatitude->setSuffix(" Deg");
-    trajectoryLayout->addRow("Latitude (N):", trajLatitude);
-    
-    QDoubleSpinBox *trajLongitude = new QDoubleSpinBox();
-    trajLongitude->setRange(-180.0, 180.0);
-    trajLongitude->setValue(0.0);
-    trajLongitude->setDecimals(6);
-    trajLongitude->setSuffix(" Deg");
-    trajectoryLayout->addRow("Longitude (W):", trajLongitude);
-    
-    QDoubleSpinBox *trajAltitude = new QDoubleSpinBox();
-    trajAltitude->setRange(0.0, 50000.0);
-    trajAltitude->setValue(0.0);
-    trajAltitude->setSuffix(" m");
-    trajectoryLayout->addRow("Altitude:", trajAltitude);
-    
-    QDoubleSpinBox *trajVelocityN = new QDoubleSpinBox();
-    trajVelocityN->setRange(-1000.0, 1000.0);
-    trajVelocityN->setValue(0.0);
-    trajVelocityN->setSuffix(" mps");
-    trajectoryLayout->addRow("Velocity N:", trajVelocityN);
-    
-    QDoubleSpinBox *trajVelocityE = new QDoubleSpinBox();
-    trajVelocityE->setRange(-1000.0, 1000.0);
-    trajVelocityE->setValue(0.0);
-    trajVelocityE->setSuffix(" mps");
-    trajectoryLayout->addRow("Velocity E:", trajVelocityE);
-    
-    QDoubleSpinBox *trajVelocityD = new QDoubleSpinBox();
-    trajVelocityD->setRange(-1000.0, 1000.0);
-    trajVelocityD->setValue(0.0);
-    trajVelocityD->setSuffix(" mps");
-    trajectoryLayout->addRow("Velocity D:", trajVelocityD);
-    
-    layout->addWidget(trajectoryGroup);
-    
-    layout->addStretch();
+    mainLay->addStretch();
+
+    // -------- Route Alt Sekmesi --------
+    generalRouteTab = new QWidget();
+    QVBoxLayout *routeLay = new QVBoxLayout(generalRouteTab);
+    QHBoxLayout *top = new QHBoxLayout();
+    QLabel *routeTitle = new QLabel("Radar's Route");
+    routeTitle->setFont(QFont("Arial", 10, QFont::Bold));
+    top->addWidget(routeTitle, 1);
+    routeLay->addLayout(top);
+
+    QGroupBox *wpGroup = new QGroupBox("Waypoints");
+    QVBoxLayout *wpLay = new QVBoxLayout(wpGroup);
+    radarWaypointList = new QListWidget();
+    radarWaypointList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    radarWaypointList->setTextElideMode(Qt::ElideNone);
+    radarWaypointList->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    radarWaypointList->setResizeMode(QListView::Adjust);
+    radarWaypointList->setMaximumHeight(180);
+    wpLay->addWidget(radarWaypointList);
+
+    QFormLayout *wpForm = new QFormLayout();
+    radarWpLatSpin = new QDoubleSpinBox();
+    radarWpLatSpin->setRange(-90.0, 90.0);
+    radarWpLatSpin->setDecimals(6);
+    radarWpLatSpin->setSuffix(" Deg");
+    wpForm->addRow("Latitude (N):", radarWpLatSpin);
+    radarWpLonSpin = new QDoubleSpinBox();
+    radarWpLonSpin->setRange(-180.0, 180.0);
+    radarWpLonSpin->setDecimals(6);
+    radarWpLonSpin->setSuffix(" Deg");
+    wpForm->addRow("Longitude (W):", radarWpLonSpin);
+    radarWpAltSpin = new QDoubleSpinBox();
+    radarWpAltSpin->setRange(0.0, 50000.0);
+    radarWpAltSpin->setValue(1000.0);
+    radarWpAltSpin->setSuffix(" m");
+    wpForm->addRow("Altitude:", radarWpAltSpin);
+    radarWpVelNSpin = new QDoubleSpinBox();
+    radarWpVelNSpin->setRange(-1000.0, 1000.0);
+    radarWpVelNSpin->setValue(0.0);
+    radarWpVelNSpin->setSuffix(" mps");
+    wpForm->addRow("Velocity N:", radarWpVelNSpin);
+    radarWpVelESpin = new QDoubleSpinBox();
+    radarWpVelESpin->setRange(-1000.0, 1000.0);
+    radarWpVelESpin->setValue(0.0);
+    radarWpVelESpin->setSuffix(" mps");
+    wpForm->addRow("Velocity E:", radarWpVelESpin);
+    radarWpVelDSpin = new QDoubleSpinBox();
+    radarWpVelDSpin->setRange(-1000.0, 1000.0);
+    radarWpVelDSpin->setValue(0.0);
+    radarWpVelDSpin->setSuffix(" mps");
+    wpForm->addRow("Velocity D:", radarWpVelDSpin);
+    wpLay->addLayout(wpForm);
+
+    QHBoxLayout *wpBtns = new QHBoxLayout();
+    radarAppendBtn = new QPushButton("Append");
+    radarDeleteBtn = new QPushButton("Delete");
+    wpBtns->addWidget(radarAppendBtn);
+    wpBtns->addWidget(radarDeleteBtn);
+    wpLay->addLayout(wpBtns);
+    routeLay->addWidget(wpGroup);
+    routeLay->addStretch();
+
+    // Alt sekmeleri ekle
+    generalSubTabs->addTab(generalInitialTab, "Initial");
+    generalSubTabs->addTab(generalRouteTab, "Route");
+
+    // Connections (Route sekmesi)
+    connect(radarAppendBtn, &QPushButton::clicked, this, &Sidebar::onAppendRadarWaypoint);
+    connect(radarDeleteBtn, &QPushButton::clicked, this, &Sidebar::onDeleteRadarWaypoint);
+
+    // Route sekmesi seçildiğinde tabloyu yenile ve durumu yayınla
+    connect(generalSubTabs, &QTabWidget::currentChanged, this, [this](int idx){
+        if (generalSubTabs->widget(idx) == generalRouteTab) {
+            radarWaypointList->clear();
+            for (const auto &rw : radarWaypointsData) {
+                QString wp = QString("Lat=%1, Lon=%2, Alt=%3m, VelN=%4, VelE=%5, VelD=%6")
+                    .arg(rw.lat, 0, 'f', 6)
+                    .arg(rw.lon, 0, 'f', 6)
+                    .arg(rw.alt, 0, 'f', 1)
+                    .arg(rw.velN, 0, 'f', 1)
+                    .arg(rw.velE, 0, 'f', 1)
+                    .arg(rw.velD, 0, 'f', 1);
+                radarWaypointList->addItem(wp);
+            }
+            QVector<QPair<double,double>> latLon;
+            latLon.push_back({ generalLatSpin->value(), generalLonSpin->value() });
+            for (const auto &rw : radarWaypointsData) latLon.push_back({ rw.lat, rw.lon });
+            emit radarRouteChanged(latLon);
+        }
+    });
 }
 
 void Sidebar::createAdvancedPropertiesTab()
@@ -310,6 +360,10 @@ void Sidebar::createTerrainTab()
     QVBoxLayout *dtedFilesLayout = new QVBoxLayout(dtedFilesGroup);
     
     dtedFilesList = new QListWidget();
+    dtedFilesList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    dtedFilesList->setTextElideMode(Qt::ElideNone);
+    dtedFilesList->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    dtedFilesList->setResizeMode(QListView::Adjust);
     dtedFilesList->setMaximumHeight(150);
     dtedFilesLayout->addWidget(dtedFilesList);
     
@@ -358,8 +412,17 @@ void Sidebar::createAtmosphereTab()
     // Weather Condition List Section
     QGroupBox *weatherConditionGroup = new QGroupBox("Weather Condition");
     QVBoxLayout *weatherConditionLayout = new QVBoxLayout(weatherConditionGroup);
+
+    // Calculate Weather (moved from ControlPanel)
+    calculateWeatherCheckSB = new QCheckBox("Calculate Weather Conditions");
+    calculateWeatherCheckSB->setChecked(false);
+    weatherConditionLayout->addWidget(calculateWeatherCheckSB);
     
     weatherConditionList = new QListWidget();
+    weatherConditionList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    weatherConditionList->setTextElideMode(Qt::ElideNone);
+    weatherConditionList->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    weatherConditionList->setResizeMode(QListView::Adjust);
     weatherConditionList->setMaximumHeight(100);
     weatherConditionLayout->addWidget(weatherConditionList);
     
@@ -495,25 +558,25 @@ void Sidebar::createRadarTab()
 
     centerFreqSpin = new QDoubleSpinBox();
     centerFreqSpin->setRange(0.1, 100.0);
-    centerFreqSpin->setValue(10.0);
-    centerFreqSpin->setSuffix(" GHz");
+    centerFreqSpin->setValue(3000.0);
+    centerFreqSpin->setSuffix(" MHz");
     radarCfgLayout->addRow("Center Frequency:", centerFreqSpin);
 
     txPeakPowerSpin = new QDoubleSpinBox();
-    txPeakPowerSpin->setRange(0.1, 10000.0);
-    txPeakPowerSpin->setValue(100.0);
-    txPeakPowerSpin->setSuffix(" kW");
+    txPeakPowerSpin->setRange(0.001, 10000.00);
+    txPeakPowerSpin->setValue(8000.00);
+    txPeakPowerSpin->setSuffix(" W");
     radarCfgLayout->addRow("Tx Peak Power:", txPeakPowerSpin);
 
     pulseWidthSpin = new QDoubleSpinBox();
     pulseWidthSpin->setRange(0.01, 1000.0);
-    pulseWidthSpin->setValue(1.0);
+    pulseWidthSpin->setValue(0.51);
     pulseWidthSpin->setSuffix(" us");
     radarCfgLayout->addRow("Pulse Width:", pulseWidthSpin);
 
     bandwidthSpin = new QDoubleSpinBox();
     bandwidthSpin->setRange(0.1, 1000.0);
-    bandwidthSpin->setValue(10.0);
+    bandwidthSpin->setValue(5.0);
     bandwidthSpin->setSuffix(" MHz");
     radarCfgLayout->addRow("Bandwidth:", bandwidthSpin);
 
@@ -542,12 +605,12 @@ void Sidebar::createRadarTab()
     prfValueSpin = new QDoubleSpinBox();
     prfValueSpin->setRange(1.0, 1000000.0);
     prfValueSpin->setDecimals(2);
-    prfValueSpin->setValue(1000.00);
+    prfValueSpin->setValue(750.00);
     prfValueSpin->setSuffix(" Hz");
     prfLayout->addWidget(prfValueSpin, 3, 1);
 
     // init PRF state
-    prfValues = QVector<double>(1, 1000.0);
+    prfValues = QVector<double>(1, 750.00);
     prfIndexCombo->clear();
     prfIndexCombo->addItem("1");
 
@@ -572,17 +635,17 @@ void Sidebar::createRadarTab()
 
     frankCodeSizeSpin = new QDoubleSpinBox();
     frankCodeSizeSpin->setRange(2.0, 2048.0);
-    frankCodeSizeSpin->setValue(16.0);
+    frankCodeSizeSpin->setValue(4.0);
     waveLayout->addRow("Frank Code Size:", frankCodeSizeSpin);
 
     pCodeSizeSpin = new QDoubleSpinBox();
     pCodeSizeSpin->setRange(2.0, 2048.0);
-    pCodeSizeSpin->setValue(32.0);
+    pCodeSizeSpin->setValue(4.0);
     waveLayout->addRow("P Code Size:", pCodeSizeSpin);
 
     zcRootSpin = new QDoubleSpinBox();
     zcRootSpin->setRange(1.0, 1024.0);
-    zcRootSpin->setValue(1.0);
+    zcRootSpin->setValue(25.0);
     waveLayout->addRow("Zadoff-Chu Root:", zcRootSpin);
 
     windowingTypeCombo = new QComboBox();
@@ -609,19 +672,19 @@ void Sidebar::createRadarTab()
     cfarLayout->addWidget(new QLabel("Number of Training Cells:"), 2, 0);
     numTrainingCellsSpin = new QSpinBox();
     numTrainingCellsSpin->setRange(1, 10000);
-    numTrainingCellsSpin->setValue(32);
+    numTrainingCellsSpin->setValue(200);
     cfarLayout->addWidget(numTrainingCellsSpin, 2, 1);
 
     cfarLayout->addWidget(new QLabel("Number of Guard Cells:"), 3, 0);
     numGuardCellsSpin = new QSpinBox();
     numGuardCellsSpin->setRange(0, 10000);
-    numGuardCellsSpin->setValue(4);
+    numGuardCellsSpin->setValue(2);
     cfarLayout->addWidget(numGuardCellsSpin, 3, 1);
 
     cfarLayout->addWidget(new QLabel("Rank of OS-CFAR:"), 4, 0);
     osRankSpin = new QSpinBox();
     osRankSpin->setRange(1, 10000);
-    osRankSpin->setValue(16);
+    osRankSpin->setValue(100);
     cfarLayout->addWidget(osRankSpin, 4, 1);
 
     cfarLayout->addWidget(new QLabel("Probability false alarm:"), 5, 0);
@@ -654,13 +717,13 @@ void Sidebar::createRadarTab()
 
     stcCutoffRangeSpin = new QDoubleSpinBox();
     stcCutoffRangeSpin->setRange(0.0, 100000.0);
-    stcCutoffRangeSpin->setValue(1000.0);
+    stcCutoffRangeSpin->setValue(50000.00);
     stcCutoffRangeSpin->setSuffix(" m");
     stcLayout->addRow("STC Cutoff Range:", stcCutoffRangeSpin);
 
     stcFactorSpin = new QDoubleSpinBox();
     stcFactorSpin->setRange(0.0, 10.0);
-    stcFactorSpin->setValue(1.0);
+    stcFactorSpin->setValue(4.0);
     stcLayout->addRow("STC Factor:", stcFactorSpin);
 
     page1Layout->addWidget(stcGroup);
@@ -679,13 +742,13 @@ void Sidebar::createRadarTab()
 
     lowerFreqMHzSpin = new QDoubleSpinBox();
     lowerFreqMHzSpin->setRange(0.1, 100000.0);
-    lowerFreqMHzSpin->setValue(900.0);
+    lowerFreqMHzSpin->setValue(2000.00);
     lowerFreqMHzSpin->setSuffix(" MHz");
     faLayout->addRow("Lower Frequency:", lowerFreqMHzSpin);
 
     upperFreqMHzSpin = new QDoubleSpinBox();
     upperFreqMHzSpin->setRange(0.1, 100000.0);
-    upperFreqMHzSpin->setValue(1100.0);
+    upperFreqMHzSpin->setValue(4000.00);
     upperFreqMHzSpin->setSuffix(" MHz");
     faLayout->addRow("Upper Frequency:", upperFreqMHzSpin);
 
@@ -827,212 +890,321 @@ void Sidebar::createRadarTab()
 void Sidebar::createTargetTab()
 {
     targetTab = new QWidget();
-    QVBoxLayout *layout = new QVBoxLayout(targetTab);
-    layout->setSpacing(8);
-    layout->setContentsMargins(5, 5, 5, 5);
-    
-    // Target List
+    QVBoxLayout *rootLayout = new QVBoxLayout(targetTab);
+    rootLayout->setSpacing(10);
+    rootLayout->setContentsMargins(8, 8, 8, 8);
+
+    targetTab->setStyleSheet(
+        "QGroupBox{font-size:12px; font-weight:bold; margin-top:8px;}"
+        "QLabel{font-size:11px;}"
+        "QComboBox, QSpinBox, QDoubleSpinBox, QLineEdit, QListWidget, QPushButton{font-size:11px; min-height:24px;}"
+        "QCheckBox{font-size:11px;}"
+    );
+
+    targetStack = new QStackedWidget(targetTab);
+    rootLayout->addWidget(targetStack);
+
+    // Sayfa 1
+    targetMainPage = new QWidget();
+    QVBoxLayout *mainPageLayout = new QVBoxLayout(targetMainPage);
+    mainPageLayout->setSpacing(8);
+
     QGroupBox *targetListGroup = new QGroupBox("Target List");
-    targetListGroup->setFont(QFont("Arial", 9, QFont::Bold));
+    targetListGroup->setFont(QFont("Arial", 10, QFont::Bold));
     QVBoxLayout *targetListLayout = new QVBoxLayout(targetListGroup);
-    targetListLayout->setSpacing(5);
-    
+
+    QHBoxLayout *targetNameLayout = new QHBoxLayout();
+    QLabel *targetNameLabel = new QLabel("Target Name:");
+    targetNameLabel->setFont(QFont("Arial", 10));
+    targetNameEdit = new QLineEdit();
+    targetNameEdit->setPlaceholderText("Enter target name");
+    targetNameEdit->setFont(QFont("Arial", 10));
+    targetNameEdit->setMinimumHeight(22);
+    targetNameLayout->addWidget(targetNameLabel);
+    targetNameLayout->addWidget(targetNameEdit);
+    targetListLayout->addLayout(targetNameLayout);
+
     targetList = new QListWidget();
-    targetList->setFont(QFont("Arial", 8));
-    targetList->setMaximumHeight(80);
+    targetList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    targetList->setTextElideMode(Qt::ElideNone);
+    targetList->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    targetList->setResizeMode(QListView::Adjust);
+    targetList->setFont(QFont("Arial", 10));
+    targetList->setMaximumHeight(140);
     targetListLayout->addWidget(targetList);
-    
+
     QHBoxLayout *targetButtonLayout = new QHBoxLayout();
-    targetButtonLayout->setSpacing(5);
+    targetButtonLayout->setSpacing(6);
     addTargetBtn = new QPushButton("Add Target");
     deleteTargetBtn = new QPushButton("Delete Target");
-    
-    addTargetBtn->setFont(QFont("Arial", 8));
-    deleteTargetBtn->setFont(QFont("Arial", 8));
-    
+    showWaypointsBtn = new QPushButton("Target's Route");
+    showWaypointsBtn->setEnabled(false);
+
     targetButtonLayout->addWidget(addTargetBtn);
-    targetButtonLayout->addWidget(deleteTargetBtn);
+    targetButtonLayout->addWidget(deleteTargetBtn); 
+    targetButtonLayout->addWidget(showWaypointsBtn);
     targetListLayout->addLayout(targetButtonLayout);
-    
-    layout->addWidget(targetListGroup);
-    
-    // Target Configuration
-    QGroupBox *targetConfigGroup = new QGroupBox("Target Configuration");
-    targetConfigGroup->setFont(QFont("Arial", 9, QFont::Bold));
-    QFormLayout *targetConfigLayout = new QFormLayout(targetConfigGroup);
-    targetConfigLayout->setSpacing(3);
-    targetConfigLayout->setLabelAlignment(Qt::AlignRight);
-    
-    targetNameEdit = new QLineEdit();
-    targetNameEdit->setFont(QFont("Arial", 8));
-    targetNameEdit->setMinimumHeight(20);
-    targetConfigLayout->addRow("Target Name:", targetNameEdit);
-    
-    layout->addWidget(targetConfigGroup);
-    
+
+    mainPageLayout->addWidget(targetListGroup);
+
     // Initial Position
     QGroupBox *initPosGroup = new QGroupBox("Initial Position");
-    initPosGroup->setFont(QFont("Arial", 9, QFont::Bold));
+    initPosGroup->setFont(QFont("Arial", 10, QFont::Bold));
     QFormLayout *initPosLayout = new QFormLayout(initPosGroup);
-    initPosLayout->setSpacing(3);
+    initPosLayout->setSpacing(6);
     initPosLayout->setLabelAlignment(Qt::AlignRight);
-    
+
     initLatSpin = new QDoubleSpinBox();
     initLatSpin->setRange(-90.0, 90.0);
     initLatSpin->setValue(47.93943);
     initLatSpin->setDecimals(6);
     initLatSpin->setSuffix(" Deg");
-    initLatSpin->setFont(QFont("Arial", 8));
-    initLatSpin->setMinimumHeight(20);
+    initLatSpin->setFont(QFont("Arial", 10));
+    initLatSpin->setMinimumHeight(22);
     initPosLayout->addRow("Latitude (N):", initLatSpin);
-    
+
     initLonSpin = new QDoubleSpinBox();
     initLonSpin->setRange(-180.0, 180.0);
     initLonSpin->setValue(3.68785);
     initLonSpin->setDecimals(6);
     initLonSpin->setSuffix(" Deg");
-    initLonSpin->setFont(QFont("Arial", 8));
-    initLonSpin->setMinimumHeight(20);
+    initLonSpin->setFont(QFont("Arial", 10));
+    initLonSpin->setMinimumHeight(22);
     initPosLayout->addRow("Longitude (W):", initLonSpin);
-    
+
     initAltSpin = new QDoubleSpinBox();
     initAltSpin->setRange(0.0, 50000.0);
     initAltSpin->setValue(1000.0);
     initAltSpin->setSuffix(" m");
-    initAltSpin->setFont(QFont("Arial", 8));
-    initAltSpin->setMinimumHeight(20);
+    initAltSpin->setFont(QFont("Arial", 10));
+    initAltSpin->setMinimumHeight(22);
     initPosLayout->addRow("Altitude:", initAltSpin);
-    
+
     initRCSSpin = new QDoubleSpinBox();
     initRCSSpin->setRange(-50.0, 50.0);
     initRCSSpin->setValue(10.0);
     initRCSSpin->setSuffix(" dBsm");
-    initRCSSpin->setFont(QFont("Arial", 8));
-    initRCSSpin->setMinimumHeight(20);
+    initRCSSpin->setFont(QFont("Arial", 10));
+    initRCSSpin->setMinimumHeight(22);
     initPosLayout->addRow("RCS:", initRCSSpin);
-    
+
     initVelNSpin = new QDoubleSpinBox();
     initVelNSpin->setRange(-1000.0, 1000.0);
     initVelNSpin->setValue(0.0);
     initVelNSpin->setSuffix(" mps");
-    initVelNSpin->setFont(QFont("Arial", 8));
-    initVelNSpin->setMinimumHeight(20);
+    initVelNSpin->setFont(QFont("Arial", 10));
+    initVelNSpin->setMinimumHeight(22);
     initPosLayout->addRow("Velocity N:", initVelNSpin);
-    
+
     initVelESpin = new QDoubleSpinBox();
     initVelESpin->setRange(-1000.0, 1000.0);
     initVelESpin->setValue(0.0);
     initVelESpin->setSuffix(" mps");
-    initVelESpin->setFont(QFont("Arial", 8));
-    initVelESpin->setMinimumHeight(20);
+    initVelESpin->setFont(QFont("Arial", 10));
+    initVelESpin->setMinimumHeight(22);
     initPosLayout->addRow("Velocity E:", initVelESpin);
-    
+
     initVelDSpin = new QDoubleSpinBox();
     initVelDSpin->setRange(-1000.0, 1000.0);
     initVelDSpin->setValue(0.0);
     initVelDSpin->setSuffix(" mps");
-    initVelDSpin->setFont(QFont("Arial", 8));
-    initVelDSpin->setMinimumHeight(20);
+    initVelDSpin->setFont(QFont("Arial", 10));
+    initVelDSpin->setMinimumHeight(22);
     initPosLayout->addRow("Velocity D:", initVelDSpin);
-    
-    layout->addWidget(initPosGroup);
-    
+
+    mainPageLayout->addWidget(initPosGroup);
+    mainPageLayout->addStretch();
+
+    targetStack->addWidget(targetMainPage);
+
+    // ---------- Sayfa 2: Selected Target Waypoints + Trajectory ----------
+    targetWaypointsPage = new QWidget();
+    QVBoxLayout *wpPageLayout = new QVBoxLayout(targetWaypointsPage);
+    wpPageLayout->setSpacing(8);
+
+    QHBoxLayout *topRow = new QHBoxLayout();
+    selectedTargetLabel = new QLabel("Selected Target: None");
+    selectedTargetLabel->setFont(QFont("Arial", 10, QFont::Bold));
+    backToTargetsBtn = new QPushButton("Back to Targets");
+    topRow->addWidget(selectedTargetLabel, 1);
+    topRow->addWidget(backToTargetsBtn, 0);
+    wpPageLayout->addLayout(topRow);
+
+    // Waypoint List
+    QGroupBox *waypointGroup = new QGroupBox("Waypoint List");
+    waypointGroup->setFont(QFont("Arial", 10, QFont::Bold));
+    QVBoxLayout *waypointLayout = new QVBoxLayout(waypointGroup);
+    waypointLayout->setSpacing(6);
+
+    waypointList = new QListWidget();
+    waypointList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    waypointList->setTextElideMode(Qt::ElideNone);
+    waypointList->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    waypointList->setResizeMode(QListView::Adjust);
+    waypointList->setFont(QFont("Arial", 10));
+    waypointList->setMaximumHeight(180);
+    waypointLayout->addWidget(waypointList);
+
+    QHBoxLayout *waypointButtonLayout = new QHBoxLayout();
+    waypointButtonLayout->setSpacing(6);
+    appendWaypointBtn = new QPushButton("Append");
+    deleteWaypointBtn = new QPushButton("Delete");
+    appendWaypointBtn->setEnabled(false);
+    waypointButtonLayout->addWidget(appendWaypointBtn);
+    waypointButtonLayout->addWidget(deleteWaypointBtn);
+    waypointLayout->addLayout(waypointButtonLayout);
+
+    wpPageLayout->addWidget(waypointGroup);
+
     // Trajectory
     QGroupBox *trajectoryGroup = new QGroupBox("Trajectory");
-    trajectoryGroup->setFont(QFont("Arial", 9, QFont::Bold));
+    trajectoryGroup->setFont(QFont("Arial", 10, QFont::Bold));
     QFormLayout *trajectoryLayout = new QFormLayout(trajectoryGroup);
-    trajectoryLayout->setSpacing(3);
+    trajectoryLayout->setSpacing(6);
     trajectoryLayout->setLabelAlignment(Qt::AlignRight);
-    
+
     trajLatSpin = new QDoubleSpinBox();
     trajLatSpin->setRange(-90.0, 90.0);
     trajLatSpin->setValue(47.93943);
     trajLatSpin->setDecimals(6);
     trajLatSpin->setSuffix(" Deg");
-    trajLatSpin->setFont(QFont("Arial", 8));
-    trajLatSpin->setMinimumHeight(20);
+    trajLatSpin->setFont(QFont("Arial", 10));
+    trajLatSpin->setMinimumHeight(22);
     trajectoryLayout->addRow("Latitude (N):", trajLatSpin);
-    
+
     trajLonSpin = new QDoubleSpinBox();
     trajLonSpin->setRange(-180.0, 180.0);
     trajLonSpin->setValue(3.68785);
     trajLonSpin->setDecimals(6);
     trajLonSpin->setSuffix(" Deg");
-    trajLonSpin->setFont(QFont("Arial", 8));
-    trajLonSpin->setMinimumHeight(20);
+    trajLonSpin->setFont(QFont("Arial", 10));
+    trajLonSpin->setMinimumHeight(22);
     trajectoryLayout->addRow("Longitude (W):", trajLonSpin);
-    
+
     trajAltSpin = new QDoubleSpinBox();
     trajAltSpin->setRange(0.0, 50000.0);
     trajAltSpin->setValue(1000.0);
     trajAltSpin->setSuffix(" m");
-    trajAltSpin->setFont(QFont("Arial", 8));
-    trajAltSpin->setMinimumHeight(20);
+    trajAltSpin->setFont(QFont("Arial", 10));
+    trajAltSpin->setMinimumHeight(22);
     trajectoryLayout->addRow("Altitude:", trajAltSpin);
-    
+
     trajVelNSpin = new QDoubleSpinBox();
     trajVelNSpin->setRange(-1000.0, 1000.0);
     trajVelNSpin->setValue(0.0);
     trajVelNSpin->setSuffix(" mps");
-    trajVelNSpin->setFont(QFont("Arial", 8));
-    trajVelNSpin->setMinimumHeight(20);
+    trajVelNSpin->setFont(QFont("Arial", 10));
+    trajVelNSpin->setMinimumHeight(22);
     trajectoryLayout->addRow("Velocity N:", trajVelNSpin);
-    
+
     trajVelESpin = new QDoubleSpinBox();
     trajVelESpin->setRange(-1000.0, 1000.0);
     trajVelESpin->setValue(0.0);
     trajVelESpin->setSuffix(" mps");
-    trajVelESpin->setFont(QFont("Arial", 8));
-    trajVelESpin->setMinimumHeight(20);
+    trajVelESpin->setFont(QFont("Arial", 10));
+    trajVelESpin->setMinimumHeight(22);
     trajectoryLayout->addRow("Velocity E:", trajVelESpin);
-    
+
     trajVelDSpin = new QDoubleSpinBox();
     trajVelDSpin->setRange(-1000.0, 1000.0);
     trajVelDSpin->setValue(0.0);
     trajVelDSpin->setSuffix(" mps");
-    trajVelDSpin->setFont(QFont("Arial", 8));
-    trajVelDSpin->setMinimumHeight(20);
+    trajVelDSpin->setFont(QFont("Arial", 10));
+    trajVelDSpin->setMinimumHeight(22);
     trajectoryLayout->addRow("Velocity D:", trajVelDSpin);
-    
-    layout->addWidget(trajectoryGroup);
-    
-    // Waypoint List
-    QGroupBox *waypointGroup = new QGroupBox("Waypoint List");
-    waypointGroup->setFont(QFont("Arial", 9, QFont::Bold));
-    QVBoxLayout *waypointLayout = new QVBoxLayout(waypointGroup);
-    waypointLayout->setSpacing(5);
-    
-    waypointList = new QListWidget();
-    waypointList->setFont(QFont("Arial", 8));
-    waypointList->setMaximumHeight(80);
-    waypointLayout->addWidget(waypointList);
-    
-    QHBoxLayout *waypointButtonLayout = new QHBoxLayout();
-    waypointButtonLayout->setSpacing(5);
-    appendWaypointBtn = new QPushButton("Append");
-    deleteWaypointBtn = new QPushButton("Delete");
-    
-    appendWaypointBtn->setFont(QFont("Arial", 8));
-    deleteWaypointBtn->setFont(QFont("Arial", 8));
-    
-    waypointButtonLayout->addWidget(appendWaypointBtn);
-    waypointButtonLayout->addWidget(deleteWaypointBtn);
-    waypointLayout->addLayout(waypointButtonLayout);
-    
-    layout->addWidget(waypointGroup);
-    
+
+    wpPageLayout->addWidget(trajectoryGroup);
+    wpPageLayout->addStretch();
+
+    targetStack->addWidget(targetWaypointsPage);
+
+    // Baslangicta ana sayfa
+    targetStack->setCurrentWidget(targetMainPage);
+
     // Connect signals
     connect(addTargetBtn, &QPushButton::clicked, this, &Sidebar::onAddTarget);
     connect(deleteTargetBtn, &QPushButton::clicked, this, &Sidebar::onDeleteTarget);
+    connect(showWaypointsBtn, &QPushButton::clicked, this, &Sidebar::onShowWaypointsPage);
+    connect(backToTargetsBtn, &QPushButton::clicked, this, &Sidebar::onBackToTargetsPage);
     connect(appendWaypointBtn, &QPushButton::clicked, this, &Sidebar::onAppendWaypoint);
     connect(deleteWaypointBtn, &QPushButton::clicked, this, &Sidebar::onDeleteWaypoint);
     connect(targetList, &QListWidget::itemSelectionChanged, this, &Sidebar::onTargetSelectionChanged);
 }
 
-void Sidebar::onTabChanged(int index)
+void Sidebar::onShowWaypointsPage()
 {
-    // Tab değiştiğinde yapılacak işlemler
-    qDebug() << "Tab changed to index:" << index;
+    QListWidgetItem *currentItem = targetList->currentItem();
+    if (!currentItem) {
+        QMessageBox::warning(this, "Warning", "Please select a target first.");
+        return;
+    }
+    currentSelectedTarget = currentItem->text();
+    selectedTargetLabel->setText("Selected Target: " + currentSelectedTarget);
+
+    // Secilen target'in waypointlerini tabloya yukle
+    waypointList->clear();
+    if (targets.contains(currentSelectedTarget)) {
+        const QStringList &waypoints = targets[currentSelectedTarget].waypoints;
+        for (const QString &wp : waypoints) waypointList->addItem(wp);
+    }
+
+    appendWaypointBtn->setEnabled(true);
+    targetStack->setCurrentWidget(targetWaypointsPage);
+}
+
+void Sidebar::onBackToTargetsPage()
+{
+    targetStack->setCurrentWidget(targetMainPage);
+}
+
+void Sidebar::onShowRadarRoutePage()
+{
+    // Artık kullanılmıyor: Route alt sekmesi üzerinden yönetiliyor
+}
+
+void Sidebar::onBackFromRadarRoutePage()
+{
+    // Artık kullanılmıyor: geri tuşu kaldırıldı
+}
+
+void Sidebar::onAppendRadarWaypoint()
+{
+    RadarWaypoint wpd;
+    wpd.lat = radarWpLatSpin->value();
+    wpd.lon = radarWpLonSpin->value();
+    wpd.alt = radarWpAltSpin->value();
+    wpd.velN = radarWpVelNSpin->value();
+    wpd.velE = radarWpVelESpin->value();
+    wpd.velD = radarWpVelDSpin->value();
+    radarWaypointsData.append(wpd);
+
+    QString wp = QString("Lat=%1, Lon=%2, Alt=%3m, VelN=%4, VelE=%5, VelD=%6")
+        .arg(wpd.lat, 0, 'f', 6)
+        .arg(wpd.lon, 0, 'f', 6)
+        .arg(wpd.alt, 0, 'f', 1)
+        .arg(wpd.velN, 0, 'f', 1)
+        .arg(wpd.velE, 0, 'f', 1)
+        .arg(wpd.velD, 0, 'f', 1);
+    radarWaypointList->addItem(wp);
+
+    QVector<QPair<double,double>> latLon;
+    latLon.push_back({ generalLatSpin->value(), generalLonSpin->value() });
+    for (const auto &rw : radarWaypointsData) latLon.push_back({ rw.lat, rw.lon });
+    emit radarRouteChanged(latLon);
+}
+
+void Sidebar::onDeleteRadarWaypoint()
+{
+    QListWidgetItem *it = radarWaypointList->currentItem();
+    if (!it) return;
+    int row = radarWaypointList->row(it);
+    radarWaypointsData.removeAt(row);
+    delete it;
+
+    QVector<QPair<double,double>> latLon;
+    latLon.push_back({ generalLatSpin->value(), generalLonSpin->value() });
+    for (const auto &rw : radarWaypointsData) latLon.push_back({ rw.lat, rw.lon });
+    emit radarRouteChanged(latLon);
 }
 
 void Sidebar::onAddWeatherCondition()
@@ -1081,6 +1253,7 @@ void Sidebar::onAddWeatherCondition()
     
     // Listeye ekle
     weatherConditionList->addItem(conditionText);
+    weatherStore.append(condition);
     
     // Signal emit et
     emit weatherConditionAdded(condition);
@@ -1101,11 +1274,8 @@ void Sidebar::onDeleteWeatherCondition()
     QListWidgetItem *selectedItem = weatherConditionList->currentItem();
     if (selectedItem) {
         int row = weatherConditionList->row(selectedItem);
-        
-        // Haritadan da kaldır (signal emit et)
+        if (row >= 0 && row < weatherStore.size()) weatherStore.removeAt(row);
         emit weatherConditionRemoved(row);
-        
-        // Listeden kaldır
         weatherConditionList->takeItem(row);
     }
 }
@@ -1123,16 +1293,13 @@ void Sidebar::onBrowseDTEDFiles()
         for (const QString &fileName : fileNames) {
             QFileInfo fileInfo(fileName);
             QString displayName = fileInfo.fileName();
-            
-            // Listeye ekle
             QListWidgetItem *item = new QListWidgetItem(displayName);
-            item->setData(Qt::UserRole, fileName); // Tam dosya yolunu sakla
+            item->setData(Qt::UserRole, fileName);
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
             item->setCheckState(Qt::Unchecked);
             dtedFilesList->addItem(item);
+            dtedStore.append(fileName);
         }
-        
-        // Signal emit et
         emit dtedFilesAdded(fileNames);
     }
 }
@@ -1511,11 +1678,17 @@ void Sidebar::onAddTarget()
     newTarget.initVelocityE = initVelESpin->value();
     newTarget.initVelocityD = initVelDSpin->value();
     
+    // Waypoints listesini başlat
+    newTarget.waypoints = QStringList();
+    
     // Target'ı map'e ekle
     targets[targetName] = newTarget;
     
     // Liste widget'ına ekle
     targetList->addItem(targetName);
+    
+    // Signal emit et - ControlPanel'e target'ı gönder
+    emit targetAdded(newTarget);
     
     // Form'u temizle
     targetNameEdit->clear();
@@ -1531,6 +1704,9 @@ void Sidebar::onDeleteTarget()
     
     QString targetName = currentItem->text();
     
+    // Signal emit et - ControlPanel'den target'ı kaldır
+    emit targetRemoved(targetName);
+    
     // Map'ten kaldır
     targets.remove(targetName);
     
@@ -1543,6 +1719,7 @@ void Sidebar::onDeleteTarget()
         waypointList->clear();
         selectedTargetLabel->setText("Selected Target: None");
         appendWaypointBtn->setEnabled(false);
+        if (showWaypointsBtn) showWaypointsBtn->setEnabled(false);
     }
 }
 
@@ -1554,20 +1731,20 @@ void Sidebar::onTargetSelectionChanged()
         waypointList->clear();
         selectedTargetLabel->setText("Selected Target: None");
         appendWaypointBtn->setEnabled(false);
+        if (showWaypointsBtn) showWaypointsBtn->setEnabled(false);
         return;
     }
     
     currentSelectedTarget = currentItem->text();
     selectedTargetLabel->setText("Selected Target: " + currentSelectedTarget);
     appendWaypointBtn->setEnabled(true);
+    if (showWaypointsBtn) showWaypointsBtn->setEnabled(true);
     
-    // Seçilen target'ın waypoint'lerini yükle
+    // Secilen target'in waypoint'lerini tabloya yukle (detay sayfada gosterilecek)
     waypointList->clear();
     if (targets.contains(currentSelectedTarget)) {
         const QStringList &waypoints = targets[currentSelectedTarget].waypoints;
-        for (const QString &waypoint : waypoints) {
-            waypointList->addItem(waypoint);
-        }
+        for (const QString &wp : waypoints) waypointList->addItem(wp);
     }
 }
 
@@ -1588,11 +1765,22 @@ void Sidebar::onAppendWaypoint()
                          .arg(trajVelESpin->value(), 0, 'f', 1)
                          .arg(trajVelDSpin->value(), 0, 'f', 1);
     
-    // Target'ın waypoint listesine ekle
     targets[currentSelectedTarget].waypoints.append(waypointStr);
-    
-    // UI listesine ekle
+
+    // Tabloya ekle
+    int r = waypointList->count();
     waypointList->addItem(waypointStr);
+
+    // Trajectory publish
+    if (!currentSelectedTarget.isEmpty()) {
+        QVector<QPair<double,double>> latLon;
+        QRegularExpression re("Lat=([+-]?\\d+\\.?\\d*),\\s*Lon=([+-]?\\d+\\.?\\d*)");
+        for (const QString &w : targets[currentSelectedTarget].waypoints) {
+            auto m = re.match(w);
+            if (m.hasMatch()) latLon.push_back({ m.captured(1).toDouble(), m.captured(2).toDouble() });
+        }
+        emit targetTrajectoryChanged(currentSelectedTarget, latLon);
+    }
 }
 
 void Sidebar::onDeleteWaypoint()
@@ -1609,22 +1797,109 @@ void Sidebar::onDeleteWaypoint()
     
     int row = waypointList->row(currentItem);
     
-    // Target'ın waypoint listesinden kaldır
     if (row >= 0 && row < targets[currentSelectedTarget].waypoints.size()) {
         targets[currentSelectedTarget].waypoints.removeAt(row);
     }
-    
-    // UI listesinden kaldır
     delete currentItem;
     
-    // Waypoint numaralarını güncelle
     waypointList->clear();
     QStringList &waypoints = targets[currentSelectedTarget].waypoints;
     for (int i = 0; i < waypoints.size(); ++i) {
         QString waypoint = waypoints[i];
-        // Waypoint numarasını güncelle
-        waypoint.replace(QRegExp("^WP\\d+:"), QString("WP%1:").arg(i + 1));
+        waypoint.replace(QRegularExpression("^WP\\d+:"), QString("WP%1:").arg(i + 1));
         waypoints[i] = waypoint;
         waypointList->addItem(waypoint);
     }
+}
+
+void Sidebar::onInitialPositionChanged()
+{
+    double lat = generalLatSpin->value();
+    double lon = generalLonSpin->value();
+    double alt = generalAltSpin->value();
+    emit initialPositionChanged(lat, lon, alt);
+    QVector<QPair<double,double>> latLon;
+    latLon.push_back({ lat, lon });
+    for (const auto &rw : radarWaypointsData) latLon.push_back({ rw.lat, rw.lon });
+    emit radarRouteChanged(latLon);
+}
+
+void Sidebar::newRadarProfile()
+{
+    // snapshot current
+    RadarProfile rp;
+    snapshotActiveRadarInto(rp);
+    s_radarProfiles.append(rp);
+
+    radarProfileCounter++;
+    if (activeRadarLabel) activeRadarLabel->setText(QString("Active Radar: #%1").arg(radarProfileCounter));
+    if (radarNameEdit) radarNameEdit->setText(QString("Radar %1").arg(radarProfileCounter));
+    if (generalLatSpin) generalLatSpin->setValue(47.93943);
+    if (generalLonSpin) generalLonSpin->setValue(3.68785);
+    if (generalAltSpin) generalAltSpin->setValue(1000.0);
+    if (generalRcsSpin) generalRcsSpin->setValue(10.0);
+    if (generalVelNSpin) generalVelNSpin->setValue(0.0);
+    if (generalVelESpin) generalVelESpin->setValue(0.0);
+    if (generalVelDSpin) generalVelDSpin->setValue(0.0);
+    radarWaypointsData.clear();
+    if (radarWaypointList) radarWaypointList->clear();
+}
+
+void Sidebar::snapshotActiveRadarInto(RadarProfile &out) const
+{
+    out.name = radarName();
+    out.initLat = radarInitLat();
+    out.initLon = radarInitLon();
+    out.initAlt = radarInitAlt();
+    out.velN = radarInitVelN();
+    out.velE = radarInitVelE();
+    out.velD = radarInitVelD();
+    out.route = radarWaypointsData;
+    out.cfg = currentRadarConfig;
+}
+
+QList<Sidebar::RadarProfile> Sidebar::getAllRadarProfiles() const
+{
+    QList<RadarProfile> list = s_radarProfiles;
+    // Include current active as well
+    RadarProfile cur; snapshotActiveRadarInto(cur);
+    list.append(cur);
+    return list;
+}
+
+QMap<QString, QVector<RadarRouteWaypoint>> Sidebar::buildAllTargetRoutes() const
+{
+    QMap<QString, QVector<RadarRouteWaypoint>> map;
+    for (auto it = targets.begin(); it != targets.end(); ++it) {
+        const Target &t = it.value();
+        QVector<RadarRouteWaypoint> r;
+        QRegularExpression re("Lat=([+-]?\\d+\\.?\\d*),\\s*Lon=([+-]?\\d+\\.?\\d*)");
+        for (const QString &w : t.waypoints) {
+            auto m = re.match(w);
+            if (m.hasMatch()) {
+                RadarRouteWaypoint wp{};
+                wp.lat = m.captured(1).toDouble();
+                wp.lon = m.captured(2).toDouble();
+                wp.alt = t.trajAltitude;
+                wp.velN = t.trajVelocityN;
+                wp.velE = t.trajVelocityE;
+                wp.velD = t.trajVelocityD;
+                r.push_back(wp);
+            }
+        }
+        map[it.key()] = r;
+    }
+    return map;
+}
+
+QList<Target> Sidebar::getAllTargets() const
+{
+    QList<Target> list;
+    for (auto it = targets.begin(); it != targets.end(); ++it) list.push_back(it.value());
+    return list;
+}
+
+void Sidebar::onTabChanged(int index)
+{
+    Q_UNUSED(index);
 }

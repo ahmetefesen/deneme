@@ -46,11 +46,22 @@ template <> constexpr inline auto ControlPanel::qt_create_metaobjectdata<qt_meta
         "showWeatherConditionsChanged",
         "checked",
         "showDTEDAreasChanged",
+        "showTargetsTrajChanged",
+        "targetPositionUpdated",
+        "targetName",
+        "lat",
+        "lon",
+        "alt",
+        "radarPositionUpdated",
+        "namedRadarPositionUpdated",
+        "radarName",
         "onStartClicked",
         "onStopClicked",
         "onShowDTEDAreasChanged",
         "onShowWeatherConditionsChanged",
-        "onShowTargetsTrajChanged"
+        "onShowTargetsTrajChanged",
+        "updateElapsedTime",
+        "updateTargetPositions"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -66,22 +77,42 @@ template <> constexpr inline auto ControlPanel::qt_create_metaobjectdata<qt_meta
         QtMocHelpers::SignalData<void(bool)>(6, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::Bool, 5 },
         }}),
+        // Signal 'showTargetsTrajChanged'
+        QtMocHelpers::SignalData<void(bool)>(7, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Bool, 5 },
+        }}),
+        // Signal 'targetPositionUpdated'
+        QtMocHelpers::SignalData<void(const QString &, double, double, double)>(8, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 9 }, { QMetaType::Double, 10 }, { QMetaType::Double, 11 }, { QMetaType::Double, 12 },
+        }}),
+        // Signal 'radarPositionUpdated'
+        QtMocHelpers::SignalData<void(double, double, double)>(13, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Double, 10 }, { QMetaType::Double, 11 }, { QMetaType::Double, 12 },
+        }}),
+        // Signal 'namedRadarPositionUpdated'
+        QtMocHelpers::SignalData<void(const QString &, double, double, double)>(14, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 15 }, { QMetaType::Double, 10 }, { QMetaType::Double, 11 }, { QMetaType::Double, 12 },
+        }}),
         // Slot 'onStartClicked'
-        QtMocHelpers::SlotData<void()>(7, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(16, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onStopClicked'
-        QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(17, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onShowDTEDAreasChanged'
-        QtMocHelpers::SlotData<void(bool)>(9, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(bool)>(18, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { QMetaType::Bool, 5 },
         }}),
         // Slot 'onShowWeatherConditionsChanged'
-        QtMocHelpers::SlotData<void(bool)>(10, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(bool)>(19, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { QMetaType::Bool, 5 },
         }}),
         // Slot 'onShowTargetsTrajChanged'
-        QtMocHelpers::SlotData<void(bool)>(11, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(bool)>(20, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { QMetaType::Bool, 5 },
         }}),
+        // Slot 'updateElapsedTime'
+        QtMocHelpers::SlotData<void()>(21, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'updateTargetPositions'
+        QtMocHelpers::SlotData<void()>(22, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -109,11 +140,17 @@ void ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 1: _t->stopClicked(); break;
         case 2: _t->showWeatherConditionsChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
         case 3: _t->showDTEDAreasChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 4: _t->onStartClicked(); break;
-        case 5: _t->onStopClicked(); break;
-        case 6: _t->onShowDTEDAreasChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 7: _t->onShowWeatherConditionsChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 8: _t->onShowTargetsTrajChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 4: _t->showTargetsTrajChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 5: _t->targetPositionUpdated((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[4]))); break;
+        case 6: _t->radarPositionUpdated((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
+        case 7: _t->namedRadarPositionUpdated((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[4]))); break;
+        case 8: _t->onStartClicked(); break;
+        case 9: _t->onStopClicked(); break;
+        case 10: _t->onShowDTEDAreasChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 11: _t->onShowWeatherConditionsChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 12: _t->onShowTargetsTrajChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 13: _t->updateElapsedTime(); break;
+        case 14: _t->updateTargetPositions(); break;
         default: ;
         }
     }
@@ -125,6 +162,14 @@ void ControlPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         if (QtMocHelpers::indexOfMethod<void (ControlPanel::*)(bool )>(_a, &ControlPanel::showWeatherConditionsChanged, 2))
             return;
         if (QtMocHelpers::indexOfMethod<void (ControlPanel::*)(bool )>(_a, &ControlPanel::showDTEDAreasChanged, 3))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (ControlPanel::*)(bool )>(_a, &ControlPanel::showTargetsTrajChanged, 4))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (ControlPanel::*)(const QString & , double , double , double )>(_a, &ControlPanel::targetPositionUpdated, 5))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (ControlPanel::*)(double , double , double )>(_a, &ControlPanel::radarPositionUpdated, 6))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (ControlPanel::*)(const QString & , double , double , double )>(_a, &ControlPanel::namedRadarPositionUpdated, 7))
             return;
     }
 }
@@ -148,14 +193,14 @@ int ControlPanel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 15;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 15)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 9;
+        _id -= 15;
     }
     return _id;
 }
@@ -182,5 +227,29 @@ void ControlPanel::showWeatherConditionsChanged(bool _t1)
 void ControlPanel::showDTEDAreasChanged(bool _t1)
 {
     QMetaObject::activate<void>(this, &staticMetaObject, 3, nullptr, _t1);
+}
+
+// SIGNAL 4
+void ControlPanel::showTargetsTrajChanged(bool _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 4, nullptr, _t1);
+}
+
+// SIGNAL 5
+void ControlPanel::targetPositionUpdated(const QString & _t1, double _t2, double _t3, double _t4)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 5, nullptr, _t1, _t2, _t3, _t4);
+}
+
+// SIGNAL 6
+void ControlPanel::radarPositionUpdated(double _t1, double _t2, double _t3)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 6, nullptr, _t1, _t2, _t3);
+}
+
+// SIGNAL 7
+void ControlPanel::namedRadarPositionUpdated(const QString & _t1, double _t2, double _t3, double _t4)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 7, nullptr, _t1, _t2, _t3, _t4);
 }
 QT_WARNING_POP
