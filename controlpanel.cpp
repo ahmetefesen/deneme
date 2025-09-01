@@ -19,7 +19,7 @@ ControlPanel::ControlPanel(QWidget *parent)
     , currentHz(10)
     , simulationTime(0.0)
 {
-    setFixedHeight(260);
+    setFixedHeight(160);
     setupUI();
     if (mainLayout) { mainLayout->setContentsMargins(10, 6, 10, 6); mainLayout->setSpacing(20); }
     
@@ -39,8 +39,8 @@ ControlPanel::~ControlPanel()
 void ControlPanel::setupUI()
 {
     mainLayout = new QHBoxLayout(this);
-    mainLayout->setContentsMargins(10, 5, 10, 5);
-    mainLayout->setSpacing(15);
+    mainLayout->setContentsMargins(10, 4, 10, 4);
+    mainLayout->setSpacing(10);
     
     createCheckboxes();
     createHzControl();
@@ -53,8 +53,8 @@ void ControlPanel::createCheckboxes()
 {
     checkboxGroup = new QGroupBox("Display Options");
     QVBoxLayout *checkboxLayout = new QVBoxLayout(checkboxGroup);
-    checkboxLayout->setContentsMargins(12, 10, 12, 10);
-    checkboxLayout->setSpacing(10);
+    checkboxLayout->setContentsMargins(8, 6, 8, 6);
+    checkboxLayout->setSpacing(6);
 
     checkboxGroup->setMinimumWidth(260);
     checkboxGroup->setStyleSheet(
@@ -64,20 +64,20 @@ void ControlPanel::createCheckboxes()
 
     showDTEDAreasCheckBox = new QCheckBox("Show DTED Areas");
     showDTEDAreasCheckBox->setChecked(false);
-    showDTEDAreasCheckBox->setMinimumHeight(28);
-    showDTEDAreasCheckBox->setStyleSheet("QCheckBox{padding:4px 8px;}");
+    showDTEDAreasCheckBox->setMinimumHeight(20);
+    showDTEDAreasCheckBox->setStyleSheet("QCheckBox{padding:2px 6px;}");
     checkboxLayout->addWidget(showDTEDAreasCheckBox);
     
     showWeatherConditionsCheckBox = new QCheckBox("Show Weather Conditions");
     showWeatherConditionsCheckBox->setChecked(false);
-    showWeatherConditionsCheckBox->setMinimumHeight(28);
-    showWeatherConditionsCheckBox->setStyleSheet("QCheckBox{padding:4px 8px;}");
+    showWeatherConditionsCheckBox->setMinimumHeight(20);
+    showWeatherConditionsCheckBox->setStyleSheet("QCheckBox{padding:2px 6px;}");
     checkboxLayout->addWidget(showWeatherConditionsCheckBox);
     
     showTargetsTrajCheckBox = new QCheckBox("Show Targets Traj");
     showTargetsTrajCheckBox->setChecked(false);
-    showTargetsTrajCheckBox->setMinimumHeight(28);
-    showTargetsTrajCheckBox->setStyleSheet("QCheckBox{padding:4px 8px;}");
+    showTargetsTrajCheckBox->setMinimumHeight(20);
+    showTargetsTrajCheckBox->setStyleSheet("QCheckBox{padding:2px 6px;}");
     checkboxLayout->addWidget(showTargetsTrajCheckBox);
 
     // removed: calculateWeatherCheck moved to Sidebar Atmosphere
@@ -108,7 +108,7 @@ void ControlPanel::createHzControl()
         "QSpinBox {"
         "    background-color: #2a2a2a;"
         "    color: #00ff00;"
-        "    padding: 6px;"
+        "    padding: 2px;"
         "    border: 1px solid #555;"
         "    border-radius: 3px;"
         "    font-weight: bold;"
@@ -128,7 +128,7 @@ void ControlPanel::createControlButtons()
     controlGroup->setMinimumWidth(240);
     
     startButton = new QPushButton("Start");
-    startButton->setMinimumSize(90, 32);
+    startButton->setMinimumSize(72, 26);
     startButton->setStyleSheet(
         "QPushButton {"
         "    background-color: #2a82da;"
@@ -148,7 +148,7 @@ void ControlPanel::createControlButtons()
     controlLayout->addWidget(startButton);
     
     stopButton = new QPushButton("Stop");
-    stopButton->setMinimumSize(80, 30);
+    stopButton->setMinimumSize(68, 24);
     stopButton->setEnabled(false);
     stopButton->setStyleSheet(
         "QPushButton {"
@@ -192,7 +192,7 @@ void ControlPanel::createStatusDisplay()
     statusDisplay = new QLabel("Paused");
     statusDisplay->setAlignment(Qt::AlignCenter);
     statusDisplay->setFont(QFont("Arial", 10, QFont::Bold));
-    statusDisplay->setStyleSheet("QLabel { background-color: #2a2a2a; color: #ffc107; padding: 5px; border: 1px solid #555; border-radius: 3px; }");
+    statusDisplay->setStyleSheet("QLabel { background-color: #2a2a2a; color: #ffc107; padding: 3px; border: 1px solid #555; border-radius: 3px; }");
     statusLayout->addWidget(statusDisplay);
     
     mainLayout->addWidget(statusGroup);
@@ -211,7 +211,7 @@ void ControlPanel::createElapsedTimeDisplay()
     elapsedTimeDisplay = new QLabel("00:00:00");
     elapsedTimeDisplay->setAlignment(Qt::AlignCenter);
     elapsedTimeDisplay->setFont(QFont("Menlo", 12, QFont::Bold));
-    elapsedTimeDisplay->setStyleSheet("QLabel { background-color: #2a2a2a; color: #00ff00; padding: 5px; border: 1px solid #555; border-radius: 3px; }");
+    elapsedTimeDisplay->setStyleSheet("QLabel { background-color: #2a2a2a; color: #00ff00; padding: 3px; border: 1px solid #555; border-radius: 3px; }");
     elapsedTimeLayout->addWidget(elapsedTimeDisplay);
     
     mainLayout->addWidget(elapsedTimeGroup);
@@ -234,7 +234,7 @@ void ControlPanel::setRunningUI(bool running)
             }
             configGroupsRemoved = true;
         }
-        setFixedHeight(120);
+        setFixedHeight(100);
     } else {
         if (configGroupsRemoved) {
             if (checkboxGroup && checkboxGroup->parent() == nullptr) {
@@ -249,7 +249,7 @@ void ControlPanel::setRunningUI(bool running)
             }
             configGroupsRemoved = false;
         }
-        setFixedHeight(260);
+        setFixedHeight(160);
     }
     mainLayout->invalidate();
     mainLayout->activate();

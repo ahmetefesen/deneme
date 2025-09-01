@@ -180,6 +180,7 @@ QString MapWidget::generateMapHTML()
         
         map.on('load', function() {
             console.log('Map loaded successfully');
+            window.__mapReady = true;
             )";
 
     for (int i = 0; i < markers.size(); ++i) {
@@ -257,7 +258,9 @@ void MapWidget::setZoom(int zoom)
     zoomLevel = zoom;
     if (webView && webView->page()) {
         QString script = QString("map.setZoom(%1);").arg(zoom);
-        webView->page()->runJavaScript(script);
+        webView->page()->runJavaScript(
+            QString("(function(){ if(window.__mapReady && typeof map!=='undefined'){ %1 } else { setTimeout(()=>{ %1 }, 150);} })();").arg(script)
+        );
     }
 }
 
@@ -267,7 +270,9 @@ void MapWidget::setCenter(double lat, double lon)
     centerLon = Geo::wrapLon(lon);
     if (webView && webView->page()) {
         QString script = QString("map.setCenter([%1, %2]);").arg(centerLon).arg(centerLat);
-        webView->page()->runJavaScript(script);
+        webView->page()->runJavaScript(
+            QString("(function(){ if(window.__mapReady && typeof map!=='undefined'){ %1 } else { setTimeout(()=>{ %1 }, 150);} })();").arg(script)
+        );
     }
 }
 
@@ -304,7 +309,9 @@ void MapWidget::addMarker(double lat, double lon, const QString &title)
             "});"
         ).arg(markers.size() - 1).arg(lon).arg(lat).arg(title);
         
-        webView->page()->runJavaScript(script);
+        webView->page()->runJavaScript(
+            QString("(function(){ if(window.__mapReady && typeof map!=='undefined'){ %1 } else { setTimeout(()=>{ %1 }, 150);} })();").arg(script)
+        );
     }
 }
 
@@ -315,12 +322,7 @@ void MapWidget::clearMarkers()
     
     if (webView && webView->page()) {
         webView->page()->runJavaScript(
-            "(function(){"
-            "const layers = map.getStyle().layers;"
-            "layers.forEach(layer => { if (layer.id.startsWith('marker-layer-')) { map.removeLayer(layer.id); } });"
-            "const sources = Object.keys(map.getStyle().sources);"
-            "sources.forEach(src => { if (src.startsWith('marker-')) { map.removeSource(src); } });"
-            "})();"
+            "(function tryClean(){ if(window.__mapReady && typeof map!=='undefined'){ const layers = map.getStyle().layers; layers.forEach(layer => { if (layer.id.startsWith('marker-layer-')) { try{ map.removeLayer(layer.id);}catch(e){} } }); const sources = Object.keys(map.getStyle().sources); sources.forEach(src => { if (src.startsWith('marker-')) { try{ map.removeSource(src);}catch(e){} } }); } else { setTimeout(tryClean, 150);} })();"
         );
     }
 }
@@ -329,6 +331,19 @@ void MapWidget::onLoadFinished(bool success)
 {
     if (success) {
         qDebug() << "Map loaded successfully";
+        // Hover popup init (only once)
+        if (webView && webView->page()) {
+            QString js =
+                "(function initHover(){\n"
+                " if (window.__hoverInited) return;\n"
+                " function safe(){ if(!(window.__mapReady && typeof map!=='undefined')){ setTimeout(safe,150); return;}\n"
+                "  try{ const hoverPopup = new maplibregl.Popup({ closeButton:false, closeOnClick:false });\n"
+                "   map.on('mousemove', function(e){ try{ const feats = map.queryRenderedFeatures(e.point); const tf = feats.find(f=>f.layer && f.layer.id && f.layer.id.indexOf('target-layer-')===0); if(tf && tf.properties && tf.properties.name){ hoverPopup.setLngLat(e.lngLat).setText(tf.properties.name).addTo(map); } else { try{ hoverPopup.remove(); }catch(err){} } }catch(err){} });\n"
+                "   window.__hoverInited = true; }catch(err){ console.warn('hover init failed', err);} }\n"
+                " safe();\n"
+                "})();";
+            webView->page()->runJavaScript(js);
+        }
     } else {
         qDebug() << "Failed to load map";
     }
@@ -352,12 +367,7 @@ void MapWidget::clearWeatherConditions()
     weatherConditions.clear();
     if (webView && webView->page()) {
         webView->page()->runJavaScript(
-            "(function(){"
-            "const layers = map.getStyle().layers;"
-            "layers.forEach(layer => { if (layer.id.startsWith('weather-')) { map.removeLayer(layer.id); } });"
-            "const sources = Object.keys(map.getStyle().sources);"
-            "sources.forEach(src => { if (src.startsWith('weather-')) { map.removeSource(src); } });"
-            "})();"
+            "(function tryClean(){ if(window.__mapReady && typeof map!=='undefined'){ const layers = map.getStyle().layers; layers.forEach(layer => { if (layer.id.startsWith('weather-')) { try{ map.removeLayer(layer.id);}catch(e){} } }); const sources = Object.keys(map.getStyle().sources); sources.forEach(src => { if (src.startsWith('weather-')) { try{ map.removeSource(src);}catch(e){} } }); } else { setTimeout(tryClean, 150);} })();"
         );
     }
 }
@@ -421,7 +431,7 @@ void MapWidget::updateLegend()
     
     QString legendHTML = generateLegendHTML();
     QString script = QString(
-        "let legend = document.getElementById('legend');"
+        "var legend = document.getElementById('legend');"
         "if (!legend) {"
         "    legend = document.createElement('div');"
         "    legend.id = 'legend';"
@@ -437,8 +447,8 @@ void MapWidget::updateLegend()
 QString MapWidget::generateLegendHTML()
 {
     QString legend = "<h4>Map Legend</h4>";
-    legend += "<div style='margin: 5px 0;'><span style='display: inline-block; width: 20px; height: 20px; background: #00ff00; border-radius: 50%; margin-right: 8px;'></span>Targets</div>";
-    legend += "<div style='margin: 5px 0;'><span style='display: inline-block; width: 20px; height: 20px; background: #ff6600; border-radius: 50%; margin-right: 8px;'></span>Initial Position</div>";
+    legend += "<div style='margin: 5px 0;'><span style=\"display:inline-block;width: 0;height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent;border-bottom: 18px solid #ff0000;margin-right:8px;transform: rotate(45deg);\"></span>Radar (Star)</div>";
+    legend += "<div style='margin: 5px 0;'><span style='display: inline-block; width: 20px; height: 20px; background: rgba(0,102,255,0.6); border-radius: 50%; margin-right: 8px; border:1px solid #ffffff;'></span>Targets</div>";
     legend += "<div style='margin: 5px 0;'><span style='display: inline-block; width: 20px; height: 20px; background: #0066cc; border-radius: 50%; margin-right: 8px;'></span>Rain</div>";
     legend += "<div style='margin: 5px 0;'><span style='display: inline-block; width: 20px; height: 20px; background: #666666; border-radius: 50%; margin-right: 8px;'></span>Fog&Cloud</div>";
     legend += "<div style='margin: 5px 0;'><span style='display: inline-block; width: 20px; height: 20px; background: #8B4513; border-radius: 50%; margin-right: 8px;'></span>DTED Areas</div>";
@@ -556,7 +566,7 @@ void MapWidget::drawGeodesicCircle(double lat, double lon, double radiusKm,
         "'line-color':'%4','line-width':2}});"
         "})();"
     ).arg(id, coords, fillColor, lineColor);
-    webView->page()->runJavaScript(js);
+    webView->page()->runJavaScript(wrapWithMapReady(js));
 }
 
 void MapWidget::drawDTEDFootprint(double minLon, double minLat, double maxLon, double maxLat,
@@ -585,7 +595,7 @@ void MapWidget::drawDTEDFootprint(double minLon, double minLat, double maxLon, d
         "'line-color':'%4','line-width':2}});"
         "})();"
     ).arg(id, coords, fillColor, lineColor);
-    webView->page()->runJavaScript(js);
+    webView->page()->runJavaScript(wrapWithMapReady(js));
 }
 
 void MapWidget::drawTrajectory(const QString &targetName, const QVector<QPair<double,double>> &latLon)
@@ -632,7 +642,6 @@ void MapWidget::addTarget(const Target &target)
     
     QString script = QString(
         "(function(){"
-        "try{ if(map.getLayer('target-label-%1')) map.removeLayer('target-label-%1'); }catch(e){}"
         "try{ if(map.getLayer('target-layer-%1')) map.removeLayer('target-layer-%1'); }catch(e){}"
         "try{ if(map.getSource('target-%1')) map.removeSource('target-%1'); }catch(e){}"
         "map.addSource('target-%1', {"
@@ -657,26 +666,9 @@ void MapWidget::addTarget(const Target &target)
         "    'paint': {"
         "        'circle-radius': 8,"
         "        'circle-color': '#0066ff',"
-        "        'circle-opacity': 0.9,"
-        "        'circle-stroke-width': 2,"
+        "        'circle-opacity': 0.6,"
+        "        'circle-stroke-width': 1,"
         "        'circle-stroke-color': '#ffffff'"
-        "    }"
-        "});"
-        "map.addLayer({"
-        "    'id': 'target-label-%1',"
-        "    'type': 'symbol',"
-        "    'source': 'target-%1',"
-        "    'layout': {"
-        "        'text-field': '%4',"
-        "        'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],"
-        "        'text-offset': [0, 2],"
-        "        'text-anchor': 'top',"
-        "        'text-size': 12"
-        "    },"
-        "    'paint': {"
-        "        'text-color': '#ffffff',"
-        "        'text-halo-color': '#000000',"
-        "        'text-halo-width': 1"
         "    }"
         "});"
         "})();"
@@ -694,9 +686,6 @@ void MapWidget::removeTarget(const QString &targetName)
     if (!webView || !webView->page()) return;
     
     QString script = QString(
-        "if (map.getLayer('target-label-%1')) {"
-        "    map.removeLayer('target-label-%1');"
-        "}"
         "if (map.getLayer('target-layer-%1')) {"
         "    map.removeLayer('target-layer-%1');"
         "}"
@@ -719,19 +708,23 @@ void MapWidget::updateTargetPosition(const QString &targetName, double lat, doub
     QString script = QString(
         "(function(){"
         "var src = map.getSource('target-%1');"
-        "if (src) {"
-        "    src.setData({"
-        "        'type': 'Feature',"
-        "        'geometry': {"
-        "            'type': 'Point',"
-        "            'coordinates': [%2, %3]"
-        "        },"
-        "        'properties': {"
-        "            'name': '%1',"
-        "            'altitude': %4,"
-        "            'type': 'target'"
+        "if (!src) {"
+        "    try{ if(map.getLayer('target-layer-%1')) map.removeLayer('target-layer-%1'); }catch(e){}"
+        "    try{ if(map.getSource('target-%1')) map.removeSource('target-%1'); }catch(e){}"
+        "    map.addSource('target-%1', {"
+        "        'type': 'geojson',"
+        "        'data': {"
+        "            'type': 'Feature',"
+        "            'geometry': { 'type': 'Point', 'coordinates': [%2, %3] },"
+        "            'properties': { 'name': '%1', 'altitude': %4, 'type': 'target' }"
         "        }"
         "    });"
+        "    map.addLayer({ 'id': 'target-layer-%1', 'type': 'circle', 'source': 'target-%1', 'paint': {"
+        "        'circle-radius': 8, 'circle-color': '#0066ff', 'circle-opacity': 0.9, 'circle-stroke-width': 2, 'circle-stroke-color': '#ffffff' } });"
+        "    src = map.getSource('target-%1');"
+        "}"
+        "if (src) {"
+        "    src.setData({ 'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [%2, %3] }, 'properties': { 'name': '%1', 'altitude': %4, 'type': 'target' } });"
         "}"
         "})();"
     ).arg(targetName)
@@ -833,26 +826,21 @@ void MapWidget::updateInitialPosition(double lat, double lon, double alt)
     double wgs84Lat = lat;
     
     QString script = QString(
-        "const source = map.getSource('initial-pos');"
+        "(function(){"
+        "var source = map.getSource('initial-pos');"
         "if (source) {"
         "    source.setData({"
         "        'type': 'Feature',"
-        "        'geometry': {"
-        "            'type': 'Point',"
-        "            'coordinates': [%1, %2]"
-        "        },"
-        "        'properties': {"
-        "            'name': 'Initial Position',"
-        "            'altitude': %3,"
-        "            'type': 'initial_position'"
-        "        }"
+        "        'geometry': { 'type': 'Point', 'coordinates': [%1, %2] },"
+        "        'properties': { 'name': 'Initial Position', 'altitude': %3, 'type': 'initial_position' }"
         "    });"
         "}"
+        "})();"
     ).arg(wgs84Lon, 0, 'f', 6)
      .arg(wgs84Lat, 0, 'f', 6)
      .arg(alt);
     
-    webView->page()->runJavaScript(script);
+    webView->page()->runJavaScript(wrapWithMapReady(script));
 }
 
 void MapWidget::clearInitialPosition()
@@ -891,7 +879,7 @@ void MapWidget::addRadar(const QString &radarName, double lat, double lon, doubl
      .arg(wgs84Lat, 0, 'f', 6)
      .arg(radarName)
      .arg(alt);
-    webView->page()->runJavaScript(js);
+    webView->page()->runJavaScript(wrapWithMapReady(js));
 }
 
 void MapWidget::updateRadar(const QString &radarName, double lat, double lon, double alt)
@@ -900,13 +888,24 @@ void MapWidget::updateRadar(const QString &radarName, double lat, double lon, do
     double wgs84Lon = Geo::wrapLon(lon);
     double wgs84Lat = lat;
     QString src = QString("radar-%1").arg(radarName);
+    QString layer = QString("radar-layer-%1").arg(radarName);
     QString js = QString(
-        "(function(){ var s = map.getSource('%1'); if (s) { s.setData({ 'type':'Feature','geometry':{ 'type':'Point','coordinates':[%2,%3]}, 'properties':{ 'name':'%1','alt':%4 }}); } })();"
-    ).arg(src)
+        "(function(){"
+        "var s = map.getSource('%1');"
+        "if (!s) {"
+        "    try{ if(map.getLayer('%2')) map.removeLayer('%2'); }catch(e){}"
+        "    try{ if(map.getSource('%1')) map.removeSource('%1'); }catch(e){}"
+        "    map.addSource('%1', { 'type':'geojson','data':{ 'type':'Feature','geometry':{ 'type':'Point','coordinates':[%3,%4]}, 'properties':{ 'name':'%1','alt':%5 }}});"
+        "    map.addLayer({ 'id':'%2', 'type':'symbol', 'source':'%1', 'layout':{ 'text-field':'\\u2726', 'text-font':['Open Sans Regular','Arial Unicode MS Regular'], 'text-size': 20, 'text-anchor':'center' }, 'paint':{ 'text-color':'#ff0000', 'text-halo-color':'#ffffff', 'text-halo-width':1 }});"
+        "    s = map.getSource('%1');"
+        "}"
+        "if (s) { s.setData({ 'type':'Feature','geometry':{ 'type':'Point','coordinates':[%3,%4]}, 'properties':{ 'name':'%1','alt':%5 }}); }"
+        "})();"
+    ).arg(src, layer)
      .arg(wgs84Lon, 0, 'f', 6)
      .arg(wgs84Lat, 0, 'f', 6)
      .arg(alt);
-    webView->page()->runJavaScript(js);
+    webView->page()->runJavaScript(wrapWithMapReady(js));
 }
 
 void MapWidget::removeRadar(const QString &radarName)
@@ -918,5 +917,20 @@ void MapWidget::removeRadar(const QString &radarName)
         "try{ if(map.getLayer('%1')) map.removeLayer('%1'); }catch(e){}"
         "try{ if(map.getSource('%2')) map.removeSource('%2'); }catch(e){}"
     ).arg(layer, src);
+    webView->page()->runJavaScript(js);
+}
+
+QString MapWidget::wrapWithMapReady(const QString &body) const
+{
+    return QString(
+        "(function runWhenReady(){ if (window.__mapReady && typeof map!=='undefined') { try{ %1 }catch(e){ console.warn(e); } } else { setTimeout(runWhenReady, 100); } })();"
+    ).arg(body);
+}
+
+void MapWidget::clearRadars()
+{
+    if (!webView || !webView->page()) return;
+    QString js =
+        "(function tryClean(){ if(window.__mapReady && typeof map!=='undefined'){ const layers = map.getStyle().layers; layers.forEach(l=>{ if(l.id && l.id.startsWith('radar-layer-')){ try{ map.removeLayer(l.id);}catch(e){} } }); const srcs = Object.keys(map.getStyle().sources); srcs.forEach(s=>{ if(s.startsWith('radar-')){ try{ map.removeSource(s);}catch(e){} } }); } else { setTimeout(tryClean, 150);} })();";
     webView->page()->runJavaScript(js);
 }

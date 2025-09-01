@@ -29,8 +29,6 @@ static QList<Sidebar::RadarProfile> s_radarProfiles;
 Sidebar::Sidebar(QWidget *parent)
     : QWidget(parent)
 {
-    setMinimumWidth(300);
-    setMaximumWidth(400);
     setupUI();
 }
 
@@ -79,10 +77,12 @@ int Sidebar::preferredWidthForFirstTabs(int count) const
     if (!tabWidget || !tabWidget->tabBar()) return 300;
     QTabBar *tb = tabWidget->tabBar();
     int w = 0;
-    for (int i = 0; i < count && i < tb->count(); ++i) {
+    for (int i = 0; i < tb->count() && i < count; ++i) {
         w += tb->tabRect(i).width();
     }
-    return qMax(300, w + 24);
+    // Kenar boşlukları
+    w += 40;
+    return w;
 }
 
 void Sidebar::createGeneralTab()
@@ -937,7 +937,7 @@ void Sidebar::createTargetTab()
     targetButtonLayout->setSpacing(6);
     addTargetBtn = new QPushButton("Add Target");
     deleteTargetBtn = new QPushButton("Delete Target");
-    showWaypointsBtn = new QPushButton("Target's Route");
+    showWaypointsBtn = new QPushButton("Route");
     showWaypointsBtn->setEnabled(false);
 
     targetButtonLayout->addWidget(addTargetBtn);
@@ -1025,7 +1025,7 @@ void Sidebar::createTargetTab()
     QHBoxLayout *topRow = new QHBoxLayout();
     selectedTargetLabel = new QLabel("Selected Target: None");
     selectedTargetLabel->setFont(QFont("Arial", 10, QFont::Bold));
-    backToTargetsBtn = new QPushButton("Back to Targets");
+    backToTargetsBtn = new QPushButton("Targets");
     topRow->addWidget(selectedTargetLabel, 1);
     topRow->addWidget(backToTargetsBtn, 0);
     wpPageLayout->addLayout(topRow);

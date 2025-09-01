@@ -105,7 +105,9 @@ void MainWindow::setupLayout()
     
     // Splitter
     mainSplitter = new QSplitter(Qt::Horizontal);
-    mainSplitter->setOpaqueResize(true);
+    // Outline ile sürükle (lag azaltmak için)
+    mainSplitter->setOpaqueResize(false);
+    // Çocuk paneller çökertebilir
     mainSplitter->setChildrenCollapsible(true);
     mainLayout->addWidget(mainSplitter);
 
@@ -129,14 +131,34 @@ void MainWindow::setupLayout()
     mainSplitter->addWidget(mapContainer);
 
     // Collapsible ayarlarını widgetlar eklendikten sonra yap
-    mainSplitter->setCollapsible(0, true); // Sidebar tamamen kapanabilsin
-    mainSplitter->setCollapsible(1, true);
+    mainSplitter->setCollapsible(0, true);  // Sidebar tamamen kapanabilsin
+    mainSplitter->setCollapsible(1, false); // Harita tarafı çökmesin (dinamik genişleme/daralma daha stabil)
 
     // Boyut ve esneme: Başlangıçta ilk iki sekme başlığını sığdıracak genişlik
     int sideW = sidebar ? sidebar->preferredWidthForFirstTabs(2) : 300;
-    mainSplitter->setSizes({ sideW, qMax(800, width() - sideW) });
+    if (sidebar) {
+        sidebar->setMinimumWidth(0);
+        sidebar->setMaximumWidth(sideW);
+    }
+    mainSplitter->setSizes({ sideW, qMax(200, width() - sideW) });
     mainSplitter->setStretchFactor(0, 0);
     mainSplitter->setStretchFactor(1, 1);
+
+    // Sürükleme sırasında Sidebar genişliğini [0, sideW] aralığında tut
+    connect(mainSplitter, &QSplitter::splitterMoved, this, [this, sideW](int, int){
+        if (!mainSplitter) return;
+        QList<int> sizes = mainSplitter->sizes();
+        if (sizes.size() < 2) return;
+        int left = sizes.at(0);
+        int right = sizes.at(1);
+        int clampedLeft = qBound(0, left, sideW);
+        if (clampedLeft != left) {
+            mainSplitter->setSizes({ clampedLeft, qMax(200, width() - clampedLeft) });
+        }
+    });
+
+    // Save başlangıçta kapalı olsun (ilk Stop'tan sonra açılacak)
+    if (saveAction) saveAction->setEnabled(false);
 }
 
 void MainWindow::createConnections()
@@ -168,10 +190,7 @@ void MainWindow::createConnections()
     connect(sidebar, &Sidebar::targetAdded, this, &MainWindow::addTargetToSimulation);
     connect(sidebar, &Sidebar::targetRemoved, this, &MainWindow::removeTargetFromSimulation);
     connect(sidebar, &Sidebar::targetTrajectoryChanged, this, [this](const QString &name, const QVector<QPair<double,double>> &latLon){
-        if (controlPanel) {
-            // Checkbox açıksa çiz
-            // showTargetsTrajChanged sinyali MapWidget temizlemeyi de yönetiyor
-            // Burada sadece istenirse çizgiyi güncelliyoruz
+        if (controlPanel && controlPanel->showTargetsTrajEnabled()) {
             mapWidget->drawTrajectory(name, latLon);
         }
     });
@@ -366,6 +385,14 @@ void MainWindow::startSimulation()
     if (controlPanel) controlPanel->setRunningUI(true);
 
     if (sidebar && controlPanel) {
+        // Haritayı temizle: radar/target/traj/initial-pos
+        if (mapWidget) {
+            mapWidget->clearInitialPosition();
+            mapWidget->clearTargets();
+            mapWidget->clearTrajectories();
+            mapWidget->clearDTEDFiles();
+            mapWidget->updateLegend();
+        }
         controlPanel->setRadarInitialKinematics(
             sidebar->radarInitLat(),
             sidebar->radarInitLon(),
@@ -376,13 +403,13 @@ void MainWindow::startSimulation()
         );
         controlPanel->setRadarRoute(sidebar->radarRouteWaypoints());
 
-        mapWidget->addRadar(sidebar->radarName(), sidebar->radarInitLat(), sidebar->radarInitLon(), sidebar->radarInitAlt());
+        if (mapWidget) mapWidget->addRadar(sidebar->radarName(), sidebar->radarInitLat(), sidebar->radarInitLon(), sidebar->radarInitAlt());
 
         auto profiles = sidebar->getAllRadarProfiles();
         for (const auto &rp : profiles) {
             controlPanel->addRadarProfile(rp.name, rp.initLat, rp.initLon, rp.initAlt, rp.velN, rp.velE, rp.velD,
                                           [&](){ QVector<RadarRouteWaypoint> v; for(const auto &x: rp.route){ RadarRouteWaypoint w{ x.lat,x.lon,x.alt,x.velN,x.velE,x.velD}; v.push_back(w);} return v;}());
-            mapWidget->addRadar(rp.name, rp.initLat, rp.initLon, rp.initAlt);
+            if (mapWidget) mapWidget->addRadar(rp.name, rp.initLat, rp.initLon, rp.initAlt);
         }
 
         auto targets = sidebar->getAllTargets();
@@ -401,7 +428,7 @@ void MainWindow::startSimulation()
                         break;
                     }
                 }
-                mapWidget->drawTrajectory(it.key(), latLon);
+                if (mapWidget) mapWidget->drawTrajectory(it.key(), latLon);
             }
         }
     }
@@ -497,8 +524,21 @@ void MainWindow::onTargetTrajectoryChanged(const QString &targetName, const QVec
 
 void MainWindow::onShowTargetsTraj(bool enabled)
 {
-    if (!enabled) {
-        mapWidget->clearTrajectories();
+    if (!mapWidget) return;
+    if (!enabled) { mapWidget->clearTrajectories(); return; }
+    if (!sidebar) return;
+    auto routes = sidebar->buildAllTargetRoutes();
+    auto tgts = sidebar->getAllTargets();
+    for (auto it = routes.begin(); it != routes.end(); ++it) {
+        QVector<QPair<double,double>> latLon;
+        for (const auto &t : tgts) {
+            if (t.name == it.key()) {
+                latLon.push_back({ t.initLatitude, t.initLongitude });
+                break;
+            }
+        }
+        for (const auto &wp : it.value()) latLon.push_back({ wp.lat, wp.lon });
+        mapWidget->drawTrajectory(it.key(), latLon);
     }
 }
 

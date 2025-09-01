@@ -133,6 +133,9 @@ private:
     QString generateLegendHTML();
     void drawWeatherCondition(const WeatherCondition &condition);
     void drawDTEDArea(const DTEDFile &dtedFile);
+    QString wrapWithMapReady(const QString &body) const;
+    void clearRadars();
+    void reapplyPendingMarkers();
 
     QWebEngineView *webView;
     QWebEnginePage *webPage;
@@ -156,6 +159,10 @@ private:
     // DTED files için
     QList<DTEDFile> dtedFiles;
     bool showDTEDAreas;
+
+    struct NamedPoint { double lat{0.0}; double lon{0.0}; double alt{0.0}; };
+    QMap<QString, NamedPoint> pendingRadars;
+    QMap<QString, NamedPoint> pendingTargets;
 };
 
 #endif // MAPWIDGET_H
